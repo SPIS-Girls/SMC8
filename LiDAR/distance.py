@@ -5,7 +5,7 @@ from threading import Event
 from record3d import Record3DStream
 from pythonosc import udp_client
 
-class DemoApp:
+class LidarApp:
     def __init__(self):
         self.event = Event()
         self.session = None
@@ -81,7 +81,7 @@ class DemoApp:
 
 
 if __name__ == '__main__':
-    app = DemoApp()
+    app = LidarApp()
     app.connect_to_device(dev_idx=0)
     try:
         app.start_processing_stream()
