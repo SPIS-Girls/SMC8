@@ -22,4 +22,8 @@ detection_result = pd.detect(image)
 annotated_image = PoseDetector.draw_landmarks_on_image(image.numpy_view(), detection_result)
 cv2.imshow("abab", cv2.cvtColor(annotated_image, cv2.COLOR_RGB2BGR))
 
+if len(detection_result.pose_landmarks) > 0:
+    wrists_left = [[landmark[15].x, landmark[15].y, landmark[15].z] for landmark in detection_result.pose_landmarks]
+    print(wrists_left)
+
 cv2.waitKey(0)
