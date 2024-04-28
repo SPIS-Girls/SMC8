@@ -72,13 +72,16 @@ class LidarApp:
 
             # ====== Calculate the distance to the middle of the depth frame and send OSC ======
             self.client.send_message("/distance", float(self.calculate_depth_middle(depth)))
-            # self.client.send_message("/wrists", )
-            # self.client.send_message("/torsos", )
-            # print(detection_result.pose_landmarks)
+
             if len(detection_result.pose_landmarks) > 0:
-                wrists_left = [landmark.landmark[15] for landmark in detection_result.pose_landmarks]
-                print(wrists_left)
-                # wrists_left = landmark[15] for landmark in detection_result.pose_landmarks
+                wrists_left = [[landmark[15].x, landmark[15].y, landmark[15].z] for landmark in detection_result.pose_landmarks]
+                wrists_right = [[landmark[16].x, landmark[16].y, landmark[16].z] for landmark in detection_result.pose_landmarks]
+                torsos = [[landmark[11].x, landmark[11].y, landmark[11].z] for landmark in detection_result.pose_landmarks] # TODO mean across shoulders and hips (11, 12, 23, 24)
+
+            # TODO CHECK IF THIS WORKS
+            self.client.send_message("/wrists_L", wrists_left)
+            self.client.send_message("/wrists_R", wrists_right)
+            self.client.send_message("/torsos", torsos)
 
             #  ====== Postprocess for Visualization ======
             if self.session.get_device_type() == self.DEVICE_TYPE__TRUEDEPTH:
