@@ -18,7 +18,7 @@ class LidarApp:
         self.DEVICE_TYPE__LIDAR = 1
 
         self.pd = PoseDetector()
-        self.client = udp_client.SimpleUDPClient("127.0.0.1", 9998) # "192.168.1.100", 9998
+        self.client = udp_client.SimpleUDPClient("127.0.0.1", 9999) # "192.168.1.100", 9998
 
     def on_new_frame(self):
         """
@@ -69,9 +69,11 @@ class LidarApp:
 
             mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
             detection_result = self.pd.detect(mp_image)
+            wrists_left, wrists_right, torsos = self.pd.get_params()
 
             # ====== Calculate the distance to the middle of the depth frame and send OSC ======
             self.client.send_message("/distance", float(self.calculate_depth_middle(depth)))
+            self.send_body_parts(wrists_left, wrists_right, torsos)
 
             #  ====== Postprocess for Visualization ======
             if self.session.get_device_type() == self.DEVICE_TYPE__TRUEDEPTH:
@@ -89,6 +91,18 @@ class LidarApp:
 
             self.event.clear()
 
+    def send_body_parts(self, wrists_left, wrists_right, torsos):
+        for idx, wrist in enumerate(wrists_left):
+            endpoint = "/wrists_L" + str(idx)
+            self.client.send_message(endpoint, wrist)
+
+        for idx, wrist in enumerate(wrists_right):
+            endpoint = "/wrists_R" + str(idx)
+            self.client.send_message(endpoint, wrist)
+
+        for idx, torso in enumerate(torsos):
+            endpoint = "/torsos" + str(idx)
+            self.client.send_message(endpoint, torso)
 
 if __name__ == '__main__':
     app = LidarApp()

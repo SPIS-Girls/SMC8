@@ -25,18 +25,20 @@ while True:
     detection_result = pd.detect(mp_image)
     wrists_left, wrists_right, torsos = pd.get_params()
 
-    print("left", wrists_left)
-    print("right", wrists_right)
-    print("torsos", torsos)
-
     for idx, wrist in enumerate(wrists_left):
-        client.send_message("/wrists_L" + str(idx), wrist)
+        endpoint = "/wrists_L" + str(idx)
+        # print(endpoint, wrist)
+        client.send_message(endpoint, wrist)
 
     for idx, wrist in enumerate(wrists_right):
-        client.send_message("/wrists_R" + str(idx), wrist)
+        endpoint = "/wrists_R" + str(idx)
+        # print(endpoint, wrist)
+        client.send_message(endpoint, wrist)
 
     for idx, torso in enumerate(torsos):
-        client.send_message("/torsos" + str(idx), torso)
+        endpoint = "/torsos" + str(idx)
+        # print(endpoint, wrist)
+        client.send_message(endpoint, wrist)
 
 
     # cv2.imshow("Video", detection_result)
