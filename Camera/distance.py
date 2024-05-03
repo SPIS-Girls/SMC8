@@ -5,6 +5,7 @@ from threading import Event
 from record3d import Record3DStream
 from pythonosc import udp_client
 
+import config
 import mediapipe as mp
 from pose_detector import PoseDetector
 
@@ -18,7 +19,7 @@ class LidarApp:
         self.DEVICE_TYPE__LIDAR = 1
 
         self.pd = PoseDetector()
-        self.client = udp_client.SimpleUDPClient("127.0.0.1", 9999) # "192.168.1.100", 9998
+        self.client = udp_client.SimpleUDPClient(config.IP, config.PORT) 
 
     def on_new_frame(self):
         """
@@ -75,19 +76,20 @@ class LidarApp:
             self.client.send_message("/distance", float(self.calculate_depth_middle(depth)))
             self.send_body_parts(wrists_left, wrists_right, torsos)
 
-            #  ====== Postprocess for Visualization ======
-            if self.session.get_device_type() == self.DEVICE_TYPE__TRUEDEPTH:
-                depth = cv2.flip(depth, 1)
-                rgb = cv2.flip(rgb, 1)
+            if config.VISUALIZE:
+                #  ====== Postprocess for Visualization ======
+                if self.session.get_device_type() == self.DEVICE_TYPE__TRUEDEPTH:
+                    depth = cv2.flip(depth, 1)
+                    rgb = cv2.flip(rgb, 1)
 
-            detection_result = cv2.cvtColor(detection_result, cv2.COLOR_RGB2BGR)
-            rgb = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
-            depth = 1 - depth / max_depth # scale depth by max_depth and invert colors
+                detection_result = cv2.cvtColor(detection_result, cv2.COLOR_RGB2BGR)
+                rgb = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
+                depth = 1 - depth / max_depth # scale depth by max_depth and invert colors
 
-            # ====== Show the RGBD Stream ======
-            cv2.imshow("Pose Detection", detection_result)
-            cv2.imshow('Depth', depth)            
-            cv2.waitKey(1)  # Needed to refresh the window
+                # ====== Show the RGBD Stream ======
+                cv2.imshow("Pose Detection", detection_result)
+                cv2.imshow('Depth', depth)            
+                cv2.waitKey(1)  # Needed to refresh the window
 
             self.event.clear()
 

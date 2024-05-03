@@ -1,5 +1,6 @@
 import mediapipe as mp
 import numpy as np
+import config
 
 from mediapipe import solutions
 from mediapipe.tasks import python
@@ -23,13 +24,13 @@ class PoseDetector:
 
     def init_detector(self):
         base_options = python.BaseOptions(model_asset_path='model/pose_landmarker_lite.task')
-        # running mode default is image (which makes sense for us)
+
         options = vision.PoseLandmarkerOptions(
             num_poses=4, # def 1
             min_pose_detection_confidence=0.22, # def 0.5
             min_pose_presence_confidence=0.5, # def 0.5
             min_tracking_confidence=0.5, # def 0.5
-            running_mode=mp.tasks.vision.RunningMode.LIVE_STREAM,
+            running_mode=mp.tasks.vision.RunningMode.LIVE_STREAM, # def image
             base_options=base_options,
             output_segmentation_masks=False,
             result_callback=self.process_result)
@@ -50,14 +51,11 @@ class PoseDetector:
     def process_result(self, result: PoseLandmarker, mp_image : mp.Image, timastamp_ms: int):
         self.wrists_left = [[landmark[15].x, landmark[15].y, landmark[15].z] for landmark in result.pose_landmarks]
         self.wrists_right = [[landmark[16].x, landmark[16].y, landmark[16].z] for landmark in result.pose_landmarks]
-            # TODO mean across shoulders and hips (11, 12, 23, 24)
         self.torsos = self.get_torso_landmarks(result.pose_landmarks) 
         print("People count:", len(result.pose_landmarks))
-        # print("wrists_L", wrists_left)
-        # print("wrists_R", wrists_right)
-        # print("torsos", torsos)
 
-        self.result_video = self.draw_landmarks_on_image(mp_image.numpy_view(), result)
+        if config.VISUALIZE:
+            self.result_video = self.draw_landmarks_on_image(mp_image.numpy_view(), result)
     
     def detect(self, image):
         self.timestamp += 1

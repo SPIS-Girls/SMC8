@@ -5,13 +5,14 @@
 # STEP 1: Import the necessary modules.
 import numpy as np
 import cv2
+import config
 import mediapipe as mp
 from pose_detector import PoseDetector
 from pythonosc import udp_client
 
 pd = PoseDetector()
 cap = cv2.VideoCapture(0)
-client = udp_client.SimpleUDPClient("127.0.0.1", 9999)
+client = udp_client.SimpleUDPClient(config.IP, config.PORT)
 
 while True: 
     ret, frame = cap.read() 
@@ -40,8 +41,8 @@ while True:
         # print(endpoint, wrist)
         client.send_message(endpoint, wrist)
 
-
-    # cv2.imshow("Video", detection_result)
+    if config.VISUALIZE:
+        cv2.imshow("Video", detection_result)
 
     if cv2.waitKey(1) & 0xFF == ord('q'): 
         break
