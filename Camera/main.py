@@ -9,10 +9,11 @@ import config
 import mediapipe as mp
 from pose_detector import PoseDetector
 from pythonosc import udp_client
+from osc_controller import OSCController
 
 pd = PoseDetector()
 cap = cv2.VideoCapture(0)
-client = udp_client.SimpleUDPClient(config.IP, config.PORT)
+oc = OSCController(config.IP, config.PORT)
 
 while True: 
     ret, frame = cap.read() 
@@ -25,22 +26,8 @@ while True:
     mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
     detection_result = pd.detect(mp_image)
     wrists_left, wrists_right, torsos = pd.get_params()
-
-    for idx, wrist in enumerate(wrists_left):
-        endpoint = "/wrists_L" + str(idx)
-        # print(endpoint, wrist)
-        client.send_message(endpoint, wrist)
-
-    for idx, wrist in enumerate(wrists_right):
-        endpoint = "/wrists_R" + str(idx)
-        # print(endpoint, wrist)
-        client.send_message(endpoint, wrist)
-
-    for idx, torso in enumerate(torsos):
-        endpoint = "/torsos" + str(idx)
-        # print(endpoint, wrist)
-        client.send_message(endpoint, wrist)
-
+    oc.send_body_parts(wrists_left, wrists_right, torsos)
+    
     if config.VISUALIZE:
         cv2.imshow("Video", detection_result)
 
