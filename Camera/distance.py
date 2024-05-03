@@ -63,7 +63,7 @@ class LidarApp:
 
             # ====== Read the newly arrived RGBD frame ======
             depth = self.session.get_depth_frame()  
-            rgb = self.session.get_rgb_frame() # TODO we can probalby run MEDIAPIPE on this frame to count ppl, then we don't need a seperate camera
+            rgb = self.session.get_rgb_frame()
             # intrinsic_mat = self.get_intrinsic_mat_from_coeffs(self.session.get_intrinsic_mat())
             # camera_pose = self.session.get_camera_pose()  # Quaternion + world position (accessible via camera_pose.[qx|qy|qz|qw|tx|ty|tz])
 
@@ -73,29 +73,17 @@ class LidarApp:
             # ====== Calculate the distance to the middle of the depth frame and send OSC ======
             self.client.send_message("/distance", float(self.calculate_depth_middle(depth)))
 
-            if len(detection_result.pose_landmarks) > 0:
-                wrists_left = [[landmark[15].x, landmark[15].y, landmark[15].z] for landmark in detection_result.pose_landmarks]
-                wrists_right = [[landmark[16].x, landmark[16].y, landmark[16].z] for landmark in detection_result.pose_landmarks]
-                torsos = [[landmark[11].x, landmark[11].y, landmark[11].z] for landmark in detection_result.pose_landmarks] # TODO mean across shoulders and hips (11, 12, 23, 24)
-
-            # TODO CHECK IF THIS WORKS
-            self.client.send_message("/wrists_L", wrists_left)
-            self.client.send_message("/wrists_R", wrists_right)
-            self.client.send_message("/torsos", torsos)
-
             #  ====== Postprocess for Visualization ======
             if self.session.get_device_type() == self.DEVICE_TYPE__TRUEDEPTH:
                 depth = cv2.flip(depth, 1)
                 rgb = cv2.flip(rgb, 1)
 
-            annotated_image = PoseDetector.draw_landmarks_on_image(mp_image.numpy_view(), detection_result)
-            annotated_image = cv2.cvtColor(annotated_image, cv2.COLOR_RGB2BGR)
+            detection_result = cv2.cvtColor(detection_result, cv2.COLOR_RGB2BGR)
             rgb = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
             depth = 1 - depth / max_depth # scale depth by max_depth and invert colors
 
             # ====== Show the RGBD Stream ======
-            # cv2.imshow('RGB', rgb)
-            cv2.imshow("Pose Detection", annotated_image)
+            cv2.imshow("Pose Detection", detection_result)
             cv2.imshow('Depth', depth)            
             cv2.waitKey(1)  # Needed to refresh the window
 
