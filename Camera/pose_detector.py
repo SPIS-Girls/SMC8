@@ -14,6 +14,10 @@ class PoseDetector:
         self.result_video = None
         self.timestamp = 0
 
+        self.wrists_left = []
+        self.wrists_right = []
+        self.torsos = []
+
     def __del__(self) -> str:
         pass
 
@@ -40,20 +44,19 @@ class PoseDetector:
                  (landmark[11].z + landmark[12].z + landmark[23].z + landmark[24].z) * 0.25]
                  for landmark in landmarks] 
     
-    def process_result(self, result: PoseLandmarker, mp_image : mp.Image, timastamp_ms: int):
-        wrists_left = [[landmark[15].x, landmark[15].y, landmark[15].z] for landmark in result.pose_landmarks]
-        wrists_right = [[landmark[16].x, landmark[16].y, landmark[16].z] for landmark in result.pose_landmarks]
-            # TODO mean across shoulders and hips (11, 12, 23, 24)
-        torsos = self.get_torso_landmarks(result.pose_landmarks) 
-        print("People count:", len(result.pose_landmarks))
-        print("wrists_L", wrists_left)
-        print("wrists_R", wrists_right)
-        print("torsos", torsos)
+    def get_params(self):
+        return self.wrists_left, self.wrists_right, self.torsos
 
-        # TODO CHECK IF THIS WORKS
-        # self.client.send_message("/wrists_L", wrists_left)
-        # self.client.send_message("/wrists_R", wrists_right)
-        # self.client.send_message("/torsos", torsos)
+    def process_result(self, result: PoseLandmarker, mp_image : mp.Image, timastamp_ms: int):
+        self.wrists_left = [[landmark[15].x, landmark[15].y, landmark[15].z] for landmark in result.pose_landmarks]
+        self.wrists_right = [[landmark[16].x, landmark[16].y, landmark[16].z] for landmark in result.pose_landmarks]
+            # TODO mean across shoulders and hips (11, 12, 23, 24)
+        self.torsos = self.get_torso_landmarks(result.pose_landmarks) 
+        print("People count:", len(result.pose_landmarks))
+        # print("wrists_L", wrists_left)
+        # print("wrists_R", wrists_right)
+        # print("torsos", torsos)
+
         self.result_video = self.draw_landmarks_on_image(mp_image.numpy_view(), result)
     
     def detect(self, image):
