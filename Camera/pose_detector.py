@@ -2,6 +2,8 @@ import mediapipe as mp
 import numpy as np
 import config
 
+from torso import Torso
+
 from mediapipe import solutions
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
@@ -17,7 +19,7 @@ class PoseDetector:
 
         self.wrists_left = []
         self.wrists_right = []
-        self.torsos = []
+        self.torsos = [Torso(), Torso(), Torso(), Torso()]
 
     def __del__(self) -> str:
         pass
@@ -27,7 +29,7 @@ class PoseDetector:
 
         options = vision.PoseLandmarkerOptions(
             num_poses=4, # def 1
-            min_pose_detection_confidence=0.22, # def 0.5
+            min_pose_detection_confidence=0.5, # def 0.5
             min_pose_presence_confidence=0.5, # def 0.5
             min_tracking_confidence=0.5, # def 0.5
             running_mode=mp.tasks.vision.RunningMode.LIVE_STREAM, # def image
@@ -46,13 +48,16 @@ class PoseDetector:
                  for landmark in landmarks] 
     
     def get_params(self):
-        return self.wrists_left, self.wrists_right, self.torsos
+        return self.wrists_left, self.wrists_right, [t.get_weigth_effort() for t in self.torsos]
 
     def process_result(self, result: PoseLandmarker, mp_image : mp.Image, timastamp_ms: int):
         self.wrists_left = [[landmark[15].x, landmark[15].y, landmark[15].z] for landmark in result.pose_landmarks]
         self.wrists_right = [[landmark[16].x, landmark[16].y, landmark[16].z] for landmark in result.pose_landmarks]
-        self.torsos = self.get_torso_landmarks(result.pose_landmarks) 
-        print("People count:", len(result.pose_landmarks))
+
+        for idx, torso in enumerate(self.get_torso_landmarks(result.pose_landmarks)):
+            self.torsos[idx].add_torso(torso)
+
+        # print("People count:", len(result.pose_landmarks))
 
         if config.VISUALIZE:
             self.result_video = self.draw_landmarks_on_image(mp_image.numpy_view(), result)

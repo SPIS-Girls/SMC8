@@ -62,11 +62,14 @@ class LidarApp:
             # ====== Pose Detection ======
             mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
             detection_result = self.pd.detect(mp_image)
-            wrists_left, wrists_right, torsos = self.pd.get_params()
+            wrists_left, wrists_right, torsos_effort = self.pd.get_params()
 
             # ====== Send OSC ======
             self.oc.send_distance(depth_middle) # Send the distance of the middle pixels
-            self.oc.send_body_parts(wrists_left, wrists_right, torsos) # Send the body parts
+            self.oc.send_weigth_effort(torsos_effort) # Send the weigth effort
+            self.oc.send_body_parts(wrists_left, wrists_right, torsos_effort) # Send the body parts
+            
+            print(torsos_effort)
 
             if config.VISUALIZE:
                 #  ====== Postprocess for Visualization ======
