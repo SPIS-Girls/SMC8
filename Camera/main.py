@@ -26,9 +26,8 @@ while True:
     mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
     detection_result = pd.detect(mp_image)
     wrists_left, wrists_right, torsos = pd.get_params()
-    # oc.send_body_parts(wrists_left, wrists_right, torsos)
+    oc.send_body_parts(wrists_left, wrists_right)
     oc.send_weigth_effort(torsos)
-    print(torsos)
 
     
     if config.VISUALIZE:

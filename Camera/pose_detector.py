@@ -3,6 +3,8 @@ import numpy as np
 import config
 
 from torso import Torso
+from wrist import Wrist
+from rotation import Rotation
 
 from mediapipe import solutions
 from mediapipe.tasks import python
@@ -17,9 +19,11 @@ class PoseDetector:
         self.result_video = None
         self.timestamp = 0
 
-        self.wrists_left = []
-        self.wrists_right = []
         self.torsos = [Torso(), Torso(), Torso(), Torso()]
+        self.wrists_left = [Wrist(), Wrist(), Wrist(), Wrist()]
+        self.wrists_right = [Wrist(), Wrist(), Wrist(), Wrist()]
+        self.rotation = Rotation()
+
 
     def __del__(self) -> str:
         pass
@@ -41,23 +45,32 @@ class PoseDetector:
         return d
     
     @staticmethod
-    def get_torso_landmarks(landmarks: PoseLandmarker):
-        return [[(landmark[11].x + landmark[12].x + landmark[23].x + landmark[24].x) * 0.25, 
+    def get_torso_landmarks(landmark):
+        return [(landmark[11].x + landmark[12].x + landmark[23].x + landmark[24].x) * 0.25, 
                  (landmark[11].y + landmark[12].y + landmark[23].y + landmark[24].y) * 0.25,
                  (landmark[11].z + landmark[12].z + landmark[23].z + landmark[24].z) * 0.25]
-                 for landmark in landmarks] 
     
-    def get_params(self):
-        return self.wrists_left, self.wrists_right, [t.get_weigth_effort() for t in self.torsos]
+    def get_wrist_left_calc(self):
+        return [wl.get_zaxis_displacement() for wl in self.wrists_left]
+    
+    def get_wrist_right_calc(self):
+        return [wr.get_zaxis_displacement() for wr in self.wrists_right]
+    
+    def get_torso_calc(self):
+        return [t.get_weigth_effort() for t in self.torsos]
+    
+    def get_rotation_calc(self):
+        return self.rotation.get_angle()
 
     def process_result(self, result: PoseLandmarker, mp_image : mp.Image, timastamp_ms: int):
-        self.wrists_left = [[landmark[15].x, landmark[15].y, landmark[15].z] for landmark in result.pose_landmarks]
-        self.wrists_right = [[landmark[16].x, landmark[16].y, landmark[16].z] for landmark in result.pose_landmarks]
-
-        for idx, torso in enumerate(self.get_torso_landmarks(result.pose_landmarks)):
+        for idx, landmark in enumerate(result.pose_landmarks):
+            torso = self.get_torso_landmarks(landmark)
             self.torsos[idx].add_torso(torso)
+            self.wrists_left[idx].add_wrist([landmark[15].x, landmark[15].y, landmark[15].z])
+            self.wrists_right[idx].add_wrist([landmark[16].x, landmark[16].y, landmark[16].z])
 
-        # print("People count:", len(result.pose_landmarks))
+            if idx == 0:
+                self.rotation.add_person(torso)
 
         if config.VISUALIZE:
             self.result_video = self.draw_landmarks_on_image(mp_image.numpy_view(), result)

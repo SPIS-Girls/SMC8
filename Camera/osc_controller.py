@@ -10,6 +10,7 @@ class OSCController:
         self.WRIST_L_ENDPOINT = "/wrists_L"
         self.WRIST_R_ENDPOINT = "/wrists_R"
         self.TORSO_ENDPOINT = "/weight"
+        self.ROTATION_ENDPOINT = "/rotation"
 
     def send_distance(self, distance):
         self.client.send_message(self.DISTANCE_ENDPOINT, distance)
@@ -19,7 +20,10 @@ class OSCController:
             endpoint = self.TORSO_ENDPOINT + str(idx)
             self.client.send_message(endpoint, float(effort))
 
-    def send_body_parts(self, wrists_left, wrists_right, torsos):
+    def send_rotation(self, rotation):
+        self.client.send_message(self.ROTATION_ENDPOINT, rotation)
+
+    def send_body_parts(self, wrists_left, wrists_right):
         for idx, wrist in enumerate(wrists_left):
             endpoint = self.WRIST_L_ENDPOINT + str(idx)
             self.client.send_message(endpoint, wrist)

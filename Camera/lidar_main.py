@@ -5,6 +5,7 @@ from threading import Event
 from record3d import Record3DStream
 
 import config
+import distance
 import mediapipe as mp
 from pose_detector import PoseDetector
 from osc_controller import OSCController
@@ -16,6 +17,9 @@ class LidarApp:
         self.session = None
         self.DEVICE_TYPE__TRUEDEPTH = 0
         self.DEVICE_TYPE__LIDAR = 1
+
+        self.frame_drop_counter = config.DROP_FRAME_INTERVAL
+        self.detection_result = None
 
         self.pd = PoseDetector()
         self.oc = OSCController(config.IP, config.PORT)
@@ -56,20 +60,25 @@ class LidarApp:
             rgb = self.session.get_rgb_frame()
 
             # ====== Depth Calucaltions ======
-            depth_middle = float(self.calculate_depth_middle(depth))
+            depth_middle = float(distance.calculate_depth_middle(depth))
             # TODO Giacomo's code
 
             # ====== Pose Detection ======
-            mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
-            detection_result = self.pd.detect(mp_image)
-            wrists_left, wrists_right, torsos_effort = self.pd.get_params()
+            self.frame_drop_counter += 1
+            if self.frame_drop_counter % config.DROP_FRAME_INTERVAL == 0:
+                mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
+                self.detection_result = self.pd.detect(mp_image)
 
             # ====== Send OSC ======
             self.oc.send_distance(depth_middle) # Send the distance of the middle pixels
-            self.oc.send_weigth_effort(torsos_effort) # Send the weigth effort
-            self.oc.send_body_parts(wrists_left, wrists_right, torsos_effort) # Send the body parts
+            self.oc.send_weigth_effort(self.pd.get_torso_calc()) # Send the weigth effort
+            self.oc.send_body_parts(self.pd.get_wrist_left_calc(), self.pd.get_wrist_right_calc()) # Send the body parts
+            self.oc.send_rotation(self.pd.get_rotation_calc()) # Send the rotation
             
-            print(torsos_effort)
+            print("torso", self.pd.get_torso_calc())
+            print("rotation", self.pd.get_rotation_calc())
+            print("wrists left", self.pd.get_wrist_left_calc())
+            print("wrists right", self.pd.get_wrist_right_calc())
 
             if config.VISUALIZE:
                 #  ====== Postprocess for Visualization ======
@@ -77,12 +86,14 @@ class LidarApp:
                     depth = cv2.flip(depth, 1)
                     rgb = cv2.flip(rgb, 1)
 
-                detection_result = cv2.cvtColor(detection_result, cv2.COLOR_RGB2BGR)
-                rgb = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
+                if self.detection_result is not None:
+                    pose_detection = cv2.cvtColor(self.detection_result, cv2.COLOR_RGB2BGR)
+                else:
+                    pose_detection = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
                 depth = 1 - depth / max_depth # scale depth by max_depth and invert colors
 
                 # ====== Show the RGBD Stream ======
-                cv2.imshow("Pose Detection", detection_result)
+                cv2.imshow("Pose Detection", pose_detection)
                 cv2.imshow('Depth', depth)            
                 cv2.waitKey(1)  # Needed to refresh the window
 
