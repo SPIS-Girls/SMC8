@@ -33,8 +33,8 @@ class PoseDetector:
 
         options = vision.PoseLandmarkerOptions(
             num_poses=4, # def 1
-            min_pose_detection_confidence=0.75, # def 0.5
-            min_pose_presence_confidence=0.5, # def 0.5
+            min_pose_detection_confidence=0.60, # def 0.5
+            min_pose_presence_confidence=0.50, # def 0.5
             min_tracking_confidence=0.15, # def 0.5
             running_mode=mp.tasks.vision.RunningMode.LIVE_STREAM, # def image
             base_options=base_options,
