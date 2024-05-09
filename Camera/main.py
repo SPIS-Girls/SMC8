@@ -25,9 +25,15 @@ while True:
     
     mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
     detection_result = pd.detect(mp_image)
-    wrists_left, wrists_right, torsos = pd.get_params()
-    oc.send_body_parts(wrists_left, wrists_right)
-    oc.send_weigth_effort(torsos)
+
+    oc.send_weigth_effort(pd.get_torso_calc()) # Send the weigth effort
+    oc.send_body_parts(pd.get_wrist_left_calc(), pd.get_wrist_right_calc()) # Send the body parts
+    oc.send_rotation(pd.get_rotation_calc()) # Send the rotation
+
+    print("torso", pd.get_torso_calc())
+    print("rotation", pd.get_rotation_calc())
+    print("wrists left", pd.get_wrist_left_calc())
+    print("wrists right", pd.get_wrist_right_calc())
 
     
     if config.VISUALIZE:
