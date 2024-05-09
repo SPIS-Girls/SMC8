@@ -12,8 +12,10 @@ from pythonosc import udp_client
 from osc_controller import OSCController
 
 pd = PoseDetector()
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture('videos/two_ppl_spinning.MP4')
 oc = OSCController(config.IP, config.PORT)
+frame_drop_counter = config.DROP_FRAME_INTERVAL
+detection_result = None
 
 while True: 
     ret, frame = cap.read() 
@@ -23,18 +25,18 @@ while True:
         cv2.destroyAllWindows()
         break
     
-    mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
-    detection_result = pd.detect(mp_image)
+    # ====== Pose Detection ======
+    if frame_drop_counter % config.DROP_FRAME_INTERVAL == 0:
+        frame = cv2.resize(frame, (config.WIDTH, config.HEIGHT))
+        mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
+        detection_result = pd.detect(mp_image)
+        frame_drop_counter -= config.DROP_FRAME_INTERVAL
+    frame_drop_counter += 1
 
+    # ====== Send OSC ======
     oc.send_weigth_effort(pd.get_torso_calc()) # Send the weigth effort
-    oc.send_body_parts(pd.get_wrist_left_calc(), pd.get_wrist_right_calc()) # Send the body parts
+    oc.send_body_parts(pd.get_wrist_left_calc(), pd.get_wrist_right_calc()) # Send the wrist displacement
     oc.send_rotation(pd.get_rotation_calc()) # Send the rotation
-
-    print("torso", pd.get_torso_calc())
-    print("rotation", pd.get_rotation_calc())
-    print("wrists left", pd.get_wrist_left_calc())
-    print("wrists right", pd.get_wrist_right_calc())
-
     
     if config.VISUALIZE:
         cv2.imshow("Video", detection_result)

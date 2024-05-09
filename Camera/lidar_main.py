@@ -57,28 +57,13 @@ class LidarApp:
 
             # ====== Read the newly arrived RGBD frame ======
             depth = self.session.get_depth_frame()  
-            rgb = self.session.get_rgb_frame()
 
             # ====== Depth Calucaltions ======
             depth_middle = float(distance.calculate_depth_middle(depth))
             # TODO Giacomo's code
 
-            # ====== Pose Detection ======
-            self.frame_drop_counter += 1
-            if self.frame_drop_counter % config.DROP_FRAME_INTERVAL == 0:
-                mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
-                self.detection_result = self.pd.detect(mp_image)
-
             # ====== Send OSC ======
             self.oc.send_distance(depth_middle) # Send the distance of the middle pixels
-            self.oc.send_weigth_effort(self.pd.get_torso_calc()) # Send the weigth effort
-            self.oc.send_body_parts(self.pd.get_wrist_left_calc(), self.pd.get_wrist_right_calc()) # Send the body parts
-            self.oc.send_rotation(self.pd.get_rotation_calc()) # Send the rotation
-            
-            print("torso", self.pd.get_torso_calc())
-            print("rotation", self.pd.get_rotation_calc())
-            print("wrists left", self.pd.get_wrist_left_calc())
-            print("wrists right", self.pd.get_wrist_right_calc())
 
             if config.VISUALIZE:
                 #  ====== Postprocess for Visualization ======

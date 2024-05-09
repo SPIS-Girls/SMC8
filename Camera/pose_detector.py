@@ -33,9 +33,9 @@ class PoseDetector:
 
         options = vision.PoseLandmarkerOptions(
             num_poses=4, # def 1
-            min_pose_detection_confidence=0.5, # def 0.5
+            min_pose_detection_confidence=0.75, # def 0.5
             min_pose_presence_confidence=0.5, # def 0.5
-            min_tracking_confidence=0.5, # def 0.5
+            min_tracking_confidence=0.15, # def 0.5
             running_mode=mp.tasks.vision.RunningMode.LIVE_STREAM, # def image
             base_options=base_options,
             output_segmentation_masks=False,
@@ -51,10 +51,10 @@ class PoseDetector:
                  (landmark[11].z + landmark[12].z + landmark[23].z + landmark[24].z) * 0.25]
     
     def get_wrist_left_calc(self):
-        return [wl.get_zaxis_displacement() for wl in self.wrists_left]
+        return [wl.get_yaxis_displacement() for wl in self.wrists_left]
     
     def get_wrist_right_calc(self):
-        return [wr.get_zaxis_displacement() for wr in self.wrists_right]
+        return [wr.get_yaxis_displacement() for wr in self.wrists_right]
     
     def get_torso_calc(self):
         return [t.get_weigth_effort() for t in self.torsos]
@@ -71,6 +71,14 @@ class PoseDetector:
 
             if idx == 0:
                 self.rotation.add_person(torso)
+
+        # add empty values for the rest of the persons
+        for i in range(len(result.pose_landmarks), 4):
+            self.torsos[i].add_torso([0, 0, 0])
+            self.wrists_left[i].add_wrist([0, 0, 0])
+            self.wrists_right[i].add_wrist([0, 0, 0])
+            if i == 0:
+                self.rotation.add_person([0, 0, 0])
 
         if config.VISUALIZE:
             self.result_video = self.draw_landmarks_on_image(mp_image.numpy_view(), result)
