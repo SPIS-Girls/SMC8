@@ -14,7 +14,7 @@
 
 unsigned long startMillis;
 unsigned long currentMillis;
-const unsigned long period = 200;
+const unsigned long period = 20;
 const float periodSec = period / 1000.f;
 
 char ssid[] = "Biox";      // your network SSID (name)
@@ -90,8 +90,6 @@ void loop() {
       aY = 0.1 * mySensor.accelY() + 0.9 * aY_1;
       aZ = 0.1 * mySensor.accelZ() + 0.9 * aZ_1;
 
-      calcVelo();
-
       aX_1 = aX;
       aY_1 = aY;
       aZ_1 = aZ;
@@ -99,25 +97,22 @@ void loop() {
       aIntX += periodSec * mySensor.accelX();
       aIntZ += periodSec * mySensor.accelZ();
       accMag = mySensor.accelSqrt();
-      // serialOutput(aX, aY, aZ);
-      Serial.println(accMag);
     } else {
       Serial.println("Cannod read accel values " + String(result));
     }
 
     result = mySensor.gyroUpdate();
     if (result == 0) {
-      gX = 0.1 * mySensor.gyroX() + 0.9 * gX_1;
-      gY = 0.1 * mySensor.gyroY() + 0.9 * gY_1;
-      gZ = 0.1 * mySensor.gyroZ() + 0.9 * gZ_1;
+      gX = 0.7 * mySensor.gyroX() + 0.3 * gX;
+      gY = 0.7 * mySensor.gyroY() + 0.3 * gY;
+      gZ = 0.7 * mySensor.gyroZ() + 0.3 * gZ;
       gX_1 = gX;
       gY_1 = gY;
       gZ_1 = gZ;
+      gyroMag = std::sqrt(gX*gX + gY*gY + gZ*gZ);
       float gXrad = gX * (M_PI / 180.0f);
       float gYrad = gY * (M_PI / 180.0f);
       float gZrad = gZ * (M_PI / 180.0f);
-      gyroMag = std::sqrt(gXrad * gXrad + gYrad * gYrad + gZrad * gZrad);
-
     } else {
       Serial.println("Cannot read gyro values " + String(result));
     }
@@ -135,8 +130,8 @@ void loop() {
     } else {
       Serial.println("Cannot read mag values " + String(result));
     }
-    startMillis = currentMillis;
     sendOsc();
+    startMillis = currentMillis;
   }
 }
 
@@ -149,28 +144,14 @@ void serialOutput(float val1, float val2, float val3) {
 }
 
 void sendOsc() {
+  serialOutput(accMag, gyroMag, 0);
   OSCMessage msg("/LH");
   msg.add(accMag);
   msg.add(gyroMag);
-  msg.add(aZ);
-  msg.add(mySensor.accelSqrt());
-  // msg.add(gIntX);
-  // msg.add(gIntY);
-  // msg.add(gIntZ);
   Udp.beginPacket(outIp, outPort);
   msg.send(Udp);
   Udp.endPacket();
   msg.empty();
-}
-
-void calcVelo() {
-  // vX = vX_1 + (((aX + aX_1) * periodSec) / 2.f);
-  // vY = vY_1 + (((aY + aY_1) * periodSec) / 2.f);
-  // vZ = vZ_1 + (((aZ + aZ_1) * periodSec) / 2.f);
-
-  // vX_1 = vX;
-  // vY_1 = vY;
-  // vZ_1 = vZ;
 }
 
 void calcAccZ() {
