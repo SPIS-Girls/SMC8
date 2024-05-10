@@ -11,9 +11,13 @@ class OSCController:
         self.WRIST_R_ENDPOINT = "/wrists_R"
         self.TORSO_ENDPOINT = "/weight"
         self.ROTATION_ENDPOINT = "/rotation"
+        self.STOP_ENDPOINT = "/stop"
 
     def send_distance(self, distance):
         self.client.send_message(self.DISTANCE_ENDPOINT, distance)
+
+    def send_stop_position(self, is_stop_position):
+        self.client.send_message(self.STOP_ENDPOINT, bool(is_stop_position))
 
     def send_weigth_effort(self, torsos_effort):
         for idx, effort in enumerate(torsos_effort):

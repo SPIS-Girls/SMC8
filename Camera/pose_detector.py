@@ -44,11 +44,6 @@ class PoseDetector:
         
         return d
     
-    @staticmethod
-    def get_torso_landmarks(landmark):
-        return [(landmark[11].x + landmark[12].x + landmark[23].x + landmark[24].x) * 0.25, 
-                 (landmark[11].y + landmark[12].y + landmark[23].y + landmark[24].y) * 0.25,
-                 (landmark[11].z + landmark[12].z + landmark[23].z + landmark[24].z) * 0.25]
     
     def get_wrist_left_calc(self):
         return [wl.get_yaxis_displacement() for wl in self.wrists_left]
@@ -64,13 +59,12 @@ class PoseDetector:
 
     def process_result(self, result: PoseLandmarker, mp_image : mp.Image, timastamp_ms: int):
         for idx, landmark in enumerate(result.pose_landmarks):
-            torso = self.get_torso_landmarks(landmark)
-            self.torsos[idx].add_torso(torso)
+            self.torsos[idx].add_torso([landmark[0].x, landmark[0].y, landmark[0].z])
             self.wrists_left[idx].add_wrist([landmark[15].x, landmark[15].y, landmark[15].z])
             self.wrists_right[idx].add_wrist([landmark[16].x, landmark[16].y, landmark[16].z])
 
             if idx == 0:
-                self.rotation.add_person(torso)
+                self.rotation.add_person([landmark[0].x, landmark[0].y, landmark[0].z])
 
         # add empty values for the rest of the persons
         for i in range(len(result.pose_landmarks), 4):
