@@ -57,28 +57,15 @@ class LidarApp:
 
             # ====== Read the newly arrived RGBD frame ======
             depth = self.session.get_depth_frame()  
-            rgb = self.session.get_rgb_frame()
 
             # ====== Depth Calucaltions ======
             depth_middle = float(distance.calculate_depth_middle(depth))
+            is_stop = distance.is_on_the_floor(depth)
             # TODO Giacomo's code
-
-            # ====== Pose Detection ======
-            self.frame_drop_counter += 1
-            if self.frame_drop_counter % config.DROP_FRAME_INTERVAL == 0:
-                mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
-                self.detection_result = self.pd.detect(mp_image)
 
             # ====== Send OSC ======
             self.oc.send_distance(depth_middle) # Send the distance of the middle pixels
-            self.oc.send_weigth_effort(self.pd.get_torso_calc()) # Send the weigth effort
-            self.oc.send_body_parts(self.pd.get_wrist_left_calc(), self.pd.get_wrist_right_calc()) # Send the body parts
-            self.oc.send_rotation(self.pd.get_rotation_calc()) # Send the rotation
-            
-            print("torso", self.pd.get_torso_calc())
-            print("rotation", self.pd.get_rotation_calc())
-            print("wrists left", self.pd.get_wrist_left_calc())
-            print("wrists right", self.pd.get_wrist_right_calc())
+            self.oc.send_stop_position(is_stop) # Send the stop position
 
             if config.VISUALIZE:
                 #  ====== Postprocess for Visualization ======
@@ -86,14 +73,9 @@ class LidarApp:
                     depth = cv2.flip(depth, 1)
                     rgb = cv2.flip(rgb, 1)
 
-                if self.detection_result is not None:
-                    pose_detection = cv2.cvtColor(self.detection_result, cv2.COLOR_RGB2BGR)
-                else:
-                    pose_detection = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
                 depth = 1 - depth / max_depth # scale depth by max_depth and invert colors
 
                 # ====== Show the RGBD Stream ======
-                cv2.imshow("Pose Detection", pose_detection)
                 cv2.imshow('Depth', depth)            
                 cv2.waitKey(1)  # Needed to refresh the window
 
