@@ -5,13 +5,17 @@
 # STEP 1: Import the necessary modules.
 import numpy as np
 import cv2
+import config
 import mediapipe as mp
 from pose_detector import PoseDetector
 from pythonosc import udp_client
+from osc_controller import OSCController
 
 pd = PoseDetector()
-cap = cv2.VideoCapture(0)
-client = udp_client.SimpleUDPClient("127.0.0.1", 9999)
+cap = cv2.VideoCapture('videos/two_ppl_spinning_mid.MP4')
+oc = OSCController(config.IP, config.PORT)
+frame_drop_counter = config.DROP_FRAME_INTERVAL
+detection_result = None
 
 while True: 
     ret, frame = cap.read() 
@@ -21,25 +25,21 @@ while True:
         cv2.destroyAllWindows()
         break
     
-    mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
-    detection_result = pd.detect(mp_image)
-    wrists_left, wrists_right, torsos = pd.get_params()
+    # ====== Pose Detection ======
+    if frame_drop_counter % config.DROP_FRAME_INTERVAL == 0:
+        frame = cv2.resize(frame, (config.WIDTH, config.HEIGHT))
+        mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
+        detection_result = pd.detect(mp_image)
+        frame_drop_counter -= config.DROP_FRAME_INTERVAL
+    frame_drop_counter += 1
 
-    print("left", wrists_left)
-    print("right", wrists_right)
-    print("torsos", torsos)
-
-    for idx, wrist in enumerate(wrists_left):
-        client.send_message("/wrists_L" + str(idx), wrist)
-
-    for idx, wrist in enumerate(wrists_right):
-        client.send_message("/wrists_R" + str(idx), wrist)
-
-    for idx, torso in enumerate(torsos):
-        client.send_message("/torsos" + str(idx), torso)
-
-
-    # cv2.imshow("Video", detection_result)
+    # ====== Send OSC ======
+    oc.send_weigth_effort(pd.get_torso_calc()) # Send the weigth effort
+    oc.send_body_parts(pd.get_wrist_left_calc(), pd.get_wrist_right_calc()) # Send the wrist displacement
+    oc.send_rotation(pd.get_rotation_calc()) # Send the rotation
+    
+    if config.VISUALIZE:
+        cv2.imshow("Video", detection_result)
 
     if cv2.waitKey(1) & 0xFF == ord('q'): 
         break
