@@ -4,10 +4,11 @@ import config
 class Rotation:
 
     def __init__(self) -> None:
+        self.frame_window = 5
         self.angle_change = None
-        self.prev_angle = 0
+        self.prev_angles = []
         self.rotation_matrix = self.calculate_rotation_matrix(config.CAMERA_ANGLE)
-        self.threshold = 0.02
+        self.threshold = 0.15
 
     def calculate_rotation_matrix(self, angle):
         # Convert the angle to radians
@@ -28,14 +29,21 @@ class Rotation:
                                                      person[2])
         
         current_angle = Rotation.calculate_angle(person_top_view)
-        if current_angle - self.prev_angle > self.threshold:
-            self.angle_change = 1
-        elif current_angle - self.prev_angle < -self.threshold:
-            self.angle_change = -1
+        
+        if len(self.prev_angles) > self.frame_window:
+            prev_angle = self.prev_angles.pop(0)
+            diff = np.unwrap([prev_angle - current_angle])[0]
+
+            if diff > self.threshold:
+                self.angle_change = 1
+            elif diff < -self.threshold:
+                self.angle_change = -1
+            else:
+                self.angle_change = 0
         else:
             self.angle_change = 0
-            self.counter = 0
-        self.prev_angle = current_angle
+
+        self.prev_angles.append(current_angle)    
 
     def transform_to_top_view(self, x, y, z):
         # Create the original 3D point
