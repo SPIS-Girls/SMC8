@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 50.0, 100.0, 1444.0, 705.0 ],
+		"rect" : [ 83.0, 100.0, 1044.0, 705.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,6 +40,535 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"basictuning" : 440,
+					"data" : 					{
+						"clips" : [ 							{
+								"absolutepath" : "Macintosh HD:/Users/katebosen/Downloads/Tribe.mp3",
+								"filename" : "Tribe.mp3",
+								"filekind" : "audiofile",
+								"id" : "u105006211",
+								"loop" : 0,
+								"content_state" : 								{
+
+								}
+
+							}
+ ]
+					}
+,
+					"followglobaltempo" : 0,
+					"formantcorrection" : 0,
+					"id" : "obj-225",
+					"maxclass" : "playlist~",
+					"mode" : "basic",
+					"numinlets" : 1,
+					"numoutlets" : 5,
+					"originallength" : [ 0.0, "ticks" ],
+					"originaltempo" : 120.0,
+					"outlettype" : [ "signal", "signal", "signal", "", "dictionary" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 740.0, 100.0, 150.0, 30.0 ],
+					"pitchcorrection" : 0,
+					"quality" : "basic",
+					"timestretch" : [ 0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-221",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 1318.0, 630.0, 108.0, 22.0 ],
+					"text" : "FilterFreqOffset $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-220",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 1248.0, 630.0, 37.0, 22.0 ],
+					"text" : "* 100"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-219",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 1248.0, 664.035081386566162, 68.0, 22.0 ],
+					"text" : "Dry/Wet $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-218",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 1248.0, 457.0, 29.5, 22.0 ],
+					"text" : "< 0."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"autosave" : 1,
+					"bgmode" : 1,
+					"border" : 0,
+					"clickthrough" : 0,
+					"enablehscroll" : 0,
+					"enablevscroll" : 0,
+					"id" : "obj-217",
+					"linecount" : 2,
+					"lockeddragscroll" : 0,
+					"lockedsize" : 0,
+					"maxclass" : "newobj",
+					"numinlets" : 3,
+					"numoutlets" : 4,
+					"offset" : [ 0.0, 0.0 ],
+					"outlettype" : [ "signal", "signal", "", "" ],
+					"patching_rect" : [ 1248.0, 718.0, 467.0, 196.0 ],
+					"presentation_linecount" : 2,
+					"saved_attribute_attributes" : 					{
+						"valueof" : 						{
+							"parameter_invisible" : 1,
+							"parameter_longname" : "amxd~[3]",
+							"parameter_modmode" : 0,
+							"parameter_shortname" : "amxd~[1]",
+							"parameter_type" : 3
+						}
+
+					}
+,
+					"saved_object_attributes" : 					{
+						"parameter_enable" : 1,
+						"patchername" : "Max AutoFilter.amxd",
+						"patchername_fallback" : "C74:/packages/Max for Live/patchers/Max Audio Effect/Max AutoFilter/Max AutoFilter.amxd"
+					}
+,
+					"snapshot" : 					{
+						"filetype" : "C74Snapshot",
+						"version" : 2,
+						"minorversion" : 0,
+						"name" : "snapshotlist",
+						"origin" : "max~",
+						"type" : "list",
+						"subtype" : "Undefined",
+						"embed" : 1,
+						"snapshot" : 						{
+							"name" : "Max AutoFilter.amxd",
+							"origname" : "C74:/packages/Max for Live/patchers/Max Audio Effect/Max AutoFilter/Max AutoFilter.amxd",
+							"valuedictionary" : 							{
+								"parameter_values" : 								{
+									"Dry/Wet" : 0.0,
+									"EnvFollower" : 0.0,
+									"EnvInput" : -19.971268053774075,
+									"EnvInterval" : 254.496485141579342,
+									"EnvMode" : 0.0,
+									"EnvSharpness" : 0.0,
+									"EnvSmooth" : 250.593599503241222,
+									"FilterFreqOffset" : 10000.0,
+									"FilterFreqRange" : 0.0,
+									"FilterGain" : -19.961110915828719,
+									"FilterQ" : 10.0,
+									"FilterType" : 0.0,
+									"Gain" : 0.0
+								}
+
+							}
+,
+							"active" : 1
+						}
+,
+						"snapshotlist" : 						{
+							"current_snapshot" : 0,
+							"entries" : [ 								{
+									"filetype" : "C74Snapshot",
+									"version" : 2,
+									"minorversion" : 0,
+									"name" : "Max AutoFilter.amxd",
+									"origin" : "Max AutoFilter.amxd",
+									"type" : "amxd",
+									"subtype" : "Undefined",
+									"embed" : 0,
+									"snapshot" : 									{
+										"name" : "Max AutoFilter.amxd",
+										"origname" : "C74:/packages/Max for Live/patchers/Max Audio Effect/Max AutoFilter/Max AutoFilter.amxd",
+										"valuedictionary" : 										{
+											"parameter_values" : 											{
+												"Dry/Wet" : 0.0,
+												"EnvFollower" : 0.0,
+												"EnvInput" : -19.971268053774075,
+												"EnvInterval" : 254.496485141579342,
+												"EnvMode" : 0.0,
+												"EnvSharpness" : 0.0,
+												"EnvSmooth" : 250.593599503241222,
+												"FilterFreqOffset" : 10000.0,
+												"FilterFreqRange" : 0.0,
+												"FilterGain" : -19.961110915828719,
+												"FilterQ" : 10.0,
+												"FilterType" : 0.0,
+												"Gain" : 0.0
+											}
+
+										}
+,
+										"active" : 1
+									}
+,
+									"fileref" : 									{
+										"name" : "Max AutoFilter.amxd",
+										"filename" : "Max AutoFilter.amxd.maxsnap",
+										"filepath" : "~/Documents/Max 8/Snapshots",
+										"filepos" : -1,
+										"snapshotfileid" : "78ef54aea8129323d97233de57fe5f77"
+									}
+
+								}
+ ]
+						}
+
+					}
+,
+					"text" : "amxd~ \"C74:/packages/Max for Live/patchers/Max Audio Effect/Max AutoFilter/Max AutoFilter.amxd\"",
+					"varname" : "amxd~[3]",
+					"viewvisibility" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-216",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 1064.035077571868896, 498.245609283447266, 37.0, 22.0 ],
+					"text" : "* 100"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-215",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 1030.201746463775635, 528.0, 68.0, 22.0 ],
+					"text" : "Dry/Wet $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-213",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 891.228061676025391, 697.368414402008057, 65.0, 22.0 ],
+					"text" : "getparams"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-209",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 1064.035077571868896, 460.52631139755249, 29.5, 22.0 ],
+					"text" : "> 0."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-201",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 1124.0, 599.122801303863525, 50.0, 22.0 ],
+					"text" : "39850."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-188",
+					"maxclass" : "newobj",
+					"numinlets" : 6,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 1315.0, 588.596485614776611, 114.0, 22.0 ],
+					"text" : "scale -1 0 50 10000"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"format" : 6,
+					"id" : "obj-187",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 1359.649109840393066, 473.684206008911133, 50.0, 22.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-180",
+					"maxclass" : "newobj",
+					"numinlets" : 6,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 1124.0, 559.0, 123.0, 22.0 ],
+					"text" : "scale 0. 1. 50. 10000."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-179",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 1095.0, 630.0, 108.0, 22.0 ],
+					"text" : "FilterFreqOffset $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-174",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 1356.0, 892.0, 32.0, 22.0 ],
+					"text" : "print"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"autosave" : 1,
+					"bgmode" : 1,
+					"border" : 0,
+					"clickthrough" : 0,
+					"enablehscroll" : 0,
+					"enablevscroll" : 0,
+					"id" : "obj-166",
+					"linecount" : 2,
+					"lockeddragscroll" : 0,
+					"lockedsize" : 0,
+					"maxclass" : "newobj",
+					"numinlets" : 3,
+					"numoutlets" : 4,
+					"offset" : [ 0.0, 0.0 ],
+					"outlettype" : [ "signal", "signal", "", "" ],
+					"patching_rect" : [ 779.0, 722.807010650634766, 467.0, 196.0 ],
+					"presentation_linecount" : 2,
+					"saved_attribute_attributes" : 					{
+						"valueof" : 						{
+							"parameter_invisible" : 1,
+							"parameter_longname" : "amxd~[2]",
+							"parameter_modmode" : 0,
+							"parameter_shortname" : "amxd~[1]",
+							"parameter_type" : 3
+						}
+
+					}
+,
+					"saved_object_attributes" : 					{
+						"parameter_enable" : 1,
+						"patchername" : "Max AutoFilter.amxd",
+						"patchername_fallback" : "C74:/packages/Max for Live/patchers/Max Audio Effect/Max AutoFilter/Max AutoFilter.amxd"
+					}
+,
+					"snapshot" : 					{
+						"filetype" : "C74Snapshot",
+						"version" : 2,
+						"minorversion" : 0,
+						"name" : "snapshotlist",
+						"origin" : "max~",
+						"type" : "list",
+						"subtype" : "Undefined",
+						"embed" : 1,
+						"snapshot" : 						{
+							"name" : "Max AutoFilter.amxd",
+							"origname" : "C74:/packages/Max for Live/patchers/Max Audio Effect/Max AutoFilter/Max AutoFilter.amxd",
+							"valuedictionary" : 							{
+								"parameter_values" : 								{
+									"Dry/Wet" : 100.0,
+									"EnvFollower" : 0.0,
+									"EnvInput" : -19.971268053774075,
+									"EnvInterval" : 254.496485141579342,
+									"EnvMode" : 0.0,
+									"EnvSharpness" : 0.0,
+									"EnvSmooth" : 250.593599503241222,
+									"FilterFreqOffset" : 10000.0,
+									"FilterFreqRange" : 0.0,
+									"FilterGain" : -19.961110915828719,
+									"FilterQ" : 7.505511811023627,
+									"FilterType" : 1.0,
+									"Gain" : 0.0
+								}
+
+							}
+,
+							"active" : 1
+						}
+,
+						"snapshotlist" : 						{
+							"current_snapshot" : 0,
+							"entries" : [ 								{
+									"filetype" : "C74Snapshot",
+									"version" : 2,
+									"minorversion" : 0,
+									"name" : "Max AutoFilter.amxd",
+									"origin" : "Max AutoFilter.amxd",
+									"type" : "amxd",
+									"subtype" : "Undefined",
+									"embed" : 0,
+									"snapshot" : 									{
+										"name" : "Max AutoFilter.amxd",
+										"origname" : "C74:/packages/Max for Live/patchers/Max Audio Effect/Max AutoFilter/Max AutoFilter.amxd",
+										"valuedictionary" : 										{
+											"parameter_values" : 											{
+												"Dry/Wet" : 100.0,
+												"EnvFollower" : 0.0,
+												"EnvInput" : -19.971268053774075,
+												"EnvInterval" : 254.496485141579342,
+												"EnvMode" : 0.0,
+												"EnvSharpness" : 0.0,
+												"EnvSmooth" : 250.593599503241222,
+												"FilterFreqOffset" : 10000.0,
+												"FilterFreqRange" : 0.0,
+												"FilterGain" : -19.961110915828719,
+												"FilterQ" : 7.505511811023627,
+												"FilterType" : 1.0,
+												"Gain" : 0.0
+											}
+
+										}
+,
+										"active" : 1
+									}
+,
+									"fileref" : 									{
+										"name" : "Max AutoFilter.amxd",
+										"filename" : "Max AutoFilter.amxd_20240511.maxsnap",
+										"filepath" : "~/Documents/Max 8/Snapshots",
+										"filepos" : -1,
+										"snapshotfileid" : "5ae2feb345b1203d8ef50f15c42bd117"
+									}
+
+								}
+ ]
+						}
+
+					}
+,
+					"text" : "amxd~ \"C74:/packages/Max for Live/patchers/Max Audio Effect/Max AutoFilter/Max AutoFilter.amxd\"",
+					"varname" : "amxd~[2]",
+					"viewvisibility" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"format" : 6,
+					"id" : "obj-156",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 1124.0, 442.105258941650391, 50.0, 22.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-157",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 1124.0, 402.0, 179.0, 22.0 ],
+					"text" : "0.032041"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-158",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 1124.0, 352.0, 85.0, 22.0 ],
+					"text" : "OSC-route /tilt"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-159",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 1124.0, 314.0, 97.0, 22.0 ],
+					"text" : "udpreceive 9999"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-139",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 806.0, 610.5, 150.0, 33.0 ],
+					"text" : "highpass is 0 to 1 and lowpass is 0 to -1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-137",
+					"linecount" : 4,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 779.0, 509.0, 150.0, 60.0 ],
+					"text" : "make a threshhold to turn the tilting effect on and off and if its on the amount of tilt controls the offset"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-133",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -66,7 +595,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 772.0, 165.0, 53.0, 20.0 ],
+					"patching_rect" : [ 844.660182595252991, 179.61164802312851, 53.0, 20.0 ],
 					"text" : "< lidar?"
 				}
 
@@ -233,7 +762,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 50.0, 361.0, 101.0, 22.0 ],
-									"text" : "1"
+									"text" : "0"
 								}
 
 							}
@@ -748,7 +1277,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 695.0, 164.0, 66.0, 22.0 ],
+					"patching_rect" : [ 731.067951142787933, 199.029123485088348, 66.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -757,184 +1286,6 @@
 					}
 ,
 					"text" : "p pitchshift"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"basictuning" : 440,
-					"data" : 					{
-						"clips" : [ 							{
-								"absolutepath" : "Macintosh HD:/Users/katebosen/Downloads/Tribe.mp3",
-								"filename" : "Tribe.mp3",
-								"filekind" : "audiofile",
-								"id" : "u150004140",
-								"loop" : 0,
-								"content_state" : 								{
-									"speed" : 1.0
-								}
-
-							}
- ]
-					}
-,
-					"followglobaltempo" : 0,
-					"formantcorrection" : 0,
-					"id" : "obj-46",
-					"maxclass" : "playlist~",
-					"mode" : "basic",
-					"numinlets" : 1,
-					"numoutlets" : 5,
-					"originallength" : [ 0.0, "ticks" ],
-					"originaltempo" : 120.0,
-					"outlettype" : [ "signal", "signal", "signal", "", "dictionary" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 695.0, 91.0, 150.0, 30.0 ],
-					"pitchcorrection" : 0,
-					"quality" : "basic",
-					"timestretch" : [ 0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"autosave" : 1,
-					"bgmode" : 1,
-					"border" : 0,
-					"clickthrough" : 0,
-					"enablehscroll" : 0,
-					"enablevscroll" : 0,
-					"id" : "obj-126",
-					"lockeddragscroll" : 0,
-					"lockedsize" : 0,
-					"maxclass" : "newobj",
-					"numinlets" : 3,
-					"numoutlets" : 4,
-					"offset" : [ 0.0, 0.0 ],
-					"outlettype" : [ "signal", "signal", "", "" ],
-					"patching_rect" : [ 899.0, 732.0, 525.0, 196.0 ],
-					"saved_attribute_attributes" : 					{
-						"valueof" : 						{
-							"parameter_invisible" : 1,
-							"parameter_longname" : "amxd~[2]",
-							"parameter_modmode" : 0,
-							"parameter_shortname" : "amxd~[2]",
-							"parameter_type" : 3
-						}
-
-					}
-,
-					"saved_object_attributes" : 					{
-						"parameter_enable" : 1,
-						"patchername" : "Bassline.amxd",
-						"patchername_fallback" : "C74:/packages/Max for Live/patchers/Max Instrument/Bassline/Bassline.amxd"
-					}
-,
-					"snapshot" : 					{
-						"filetype" : "C74Snapshot",
-						"version" : 2,
-						"minorversion" : 0,
-						"name" : "snapshotlist",
-						"origin" : "max~",
-						"type" : "list",
-						"subtype" : "Undefined",
-						"embed" : 1,
-						"snapshot" : 						{
-							"name" : "Bassline.amxd",
-							"origname" : "C74:/packages/Max for Live/patchers/Max Instrument/Bassline/Bassline.amxd",
-							"valuedictionary" : 							{
-								"parameter_values" : 								{
-									"2nd_wave" : 0.0,
-									"attack" : 0.0,
-									"attack_filt" : 75.0,
-									"cut" : 48.0,
-									"decay" : 47.0,
-									"decay_filt" : 30.0,
-									"env" : 89.0,
-									"filt_type" : 0.0,
-									"glide" : 23.0,
-									"key" : 0.0,
-									"level" : 0.0,
-									"mod_filt" : 27.0,
-									"mod_wave" : 17.0,
-									"polyphony" : 1.0,
-									"release" : 0.0,
-									"release_filt" : 0.0,
-									"res" : 23.0,
-									"speed" : 68.0,
-									"subosc" : 60.0,
-									"sustain" : 108.0,
-									"sustain_filt" : 127.0,
-									"wave" : 0.0
-								}
-
-							}
-,
-							"active" : 1
-						}
-,
-						"snapshotlist" : 						{
-							"current_snapshot" : 0,
-							"entries" : [ 								{
-									"filetype" : "C74Snapshot",
-									"version" : 2,
-									"minorversion" : 0,
-									"name" : "Bassline.amxd",
-									"origin" : "Bassline.amxd",
-									"type" : "amxd",
-									"subtype" : "Undefined",
-									"embed" : 0,
-									"snapshot" : 									{
-										"name" : "Bassline.amxd",
-										"origname" : "C74:/packages/Max for Live/patchers/Max Instrument/Bassline/Bassline.amxd",
-										"valuedictionary" : 										{
-											"parameter_values" : 											{
-												"2nd_wave" : 0.0,
-												"attack" : 0.0,
-												"attack_filt" : 75.0,
-												"cut" : 48.0,
-												"decay" : 47.0,
-												"decay_filt" : 30.0,
-												"env" : 89.0,
-												"filt_type" : 0.0,
-												"glide" : 23.0,
-												"key" : 0.0,
-												"level" : 0.0,
-												"mod_filt" : 27.0,
-												"mod_wave" : 17.0,
-												"polyphony" : 1.0,
-												"release" : 0.0,
-												"release_filt" : 0.0,
-												"res" : 23.0,
-												"speed" : 68.0,
-												"subosc" : 60.0,
-												"sustain" : 108.0,
-												"sustain_filt" : 127.0,
-												"wave" : 0.0
-											}
-
-										}
-,
-										"active" : 1
-									}
-,
-									"fileref" : 									{
-										"name" : "Bassline.amxd",
-										"filename" : "Bassline.amxd.maxsnap",
-										"filepath" : "~/Documents/Max 8/Snapshots",
-										"filepos" : -1,
-										"snapshotfileid" : "f1b18993a2d737b5ce1eab7b9ee64433"
-									}
-
-								}
- ]
-						}
-
-					}
-,
-					"text" : "amxd~ \"C74:/packages/Max for Live/patchers/Max Instrument/Bassline/Bassline.amxd\"",
-					"varname" : "amxd~[2]",
-					"viewvisibility" : 1
 				}
 
 			}
@@ -1595,7 +1946,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1646.0, 616.0, 50.0, 22.0 ]
+					"patching_rect" : [ 2172.0, 616.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -1606,7 +1957,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1642.0, 581.0, 179.0, 22.0 ],
+					"patching_rect" : [ 2168.0, 581.0, 179.0, 22.0 ],
 					"text" : "0."
 				}
 
@@ -1620,7 +1971,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1448.0, 624.0, 50.0, 22.0 ]
+					"patching_rect" : [ 1974.0, 624.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -1631,7 +1982,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1448.0, 581.0, 179.0, 22.0 ],
+					"patching_rect" : [ 1974.0, 581.0, 179.0, 22.0 ],
 					"text" : "0."
 				}
 
@@ -1645,7 +1996,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1251.0, 624.0, 50.0, 22.0 ]
+					"patching_rect" : [ 1777.0, 624.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -1656,7 +2007,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1251.0, 581.0, 179.0, 22.0 ],
+					"patching_rect" : [ 1777.0, 581.0, 179.0, 22.0 ],
 					"text" : "0."
 				}
 
@@ -1670,7 +2021,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1063.0, 620.0, 50.0, 22.0 ]
+					"patching_rect" : [ 1589.0, 620.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -1681,8 +2032,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1063.0, 581.0, 179.0, 22.0 ],
-					"text" : "144.056122"
+					"patching_rect" : [ 1589.0, 581.0, 179.0, 22.0 ],
+					"text" : "1.426256"
 				}
 
 			}
@@ -1693,7 +2044,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "", "", "", "", "" ],
-					"patching_rect" : [ 1063.0, 528.0, 258.0, 22.0 ],
+					"patching_rect" : [ 1589.0, 528.0, 258.0, 22.0 ],
 					"text" : "OSC-route /weight0 /weight1 /weight2 /weight3"
 				}
 
@@ -1705,7 +2056,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1063.0, 489.0, 97.0, 22.0 ],
+					"patching_rect" : [ 1589.0, 489.0, 97.0, 22.0 ],
 					"text" : "udpreceive 9999"
 				}
 
@@ -1719,7 +2070,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1641.0, 402.0, 50.0, 22.0 ]
+					"patching_rect" : [ 2167.0, 402.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -1730,7 +2081,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1640.0, 359.0, 179.0, 22.0 ],
+					"patching_rect" : [ 2166.0, 359.0, 179.0, 22.0 ],
 					"text" : "0."
 				}
 
@@ -1744,7 +2095,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1449.0, 402.0, 50.0, 22.0 ]
+					"patching_rect" : [ 1975.0, 402.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -1755,7 +2106,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1448.0, 359.0, 179.0, 22.0 ],
+					"patching_rect" : [ 1974.0, 359.0, 179.0, 22.0 ],
 					"text" : "0."
 				}
 
@@ -1769,7 +2120,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1251.0, 402.0, 50.0, 22.0 ]
+					"patching_rect" : [ 1777.0, 402.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -1780,7 +2131,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1251.0, 359.0, 179.0, 22.0 ],
+					"patching_rect" : [ 1777.0, 359.0, 179.0, 22.0 ],
 					"text" : "-0."
 				}
 
@@ -1794,7 +2145,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1063.0, 402.0, 50.0, 22.0 ]
+					"patching_rect" : [ 1589.0, 402.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -1805,8 +2156,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1063.0, 359.0, 179.0, 22.0 ],
-					"text" : "0.420812"
+					"patching_rect" : [ 1589.0, 359.0, 179.0, 22.0 ],
+					"text" : "0.016031"
 				}
 
 			}
@@ -1819,7 +2170,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1641.0, 164.0, 50.0, 22.0 ]
+					"patching_rect" : [ 2167.0, 160.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -1830,7 +2181,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1641.0, 122.0, 179.0, 22.0 ],
+					"patching_rect" : [ 2167.0, 118.0, 179.0, 22.0 ],
 					"text" : "0."
 				}
 
@@ -1844,7 +2195,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1449.0, 164.0, 50.0, 22.0 ]
+					"patching_rect" : [ 1975.0, 160.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -1855,7 +2206,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1449.0, 122.0, 179.0, 22.0 ],
+					"patching_rect" : [ 1975.0, 118.0, 179.0, 22.0 ],
 					"text" : "0."
 				}
 
@@ -1869,7 +2220,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1251.0, 164.0, 50.0, 22.0 ]
+					"patching_rect" : [ 1777.0, 160.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -1880,7 +2231,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1252.0, 122.0, 179.0, 22.0 ],
+					"patching_rect" : [ 1778.0, 118.0, 179.0, 22.0 ],
 					"text" : "-0."
 				}
 
@@ -1892,7 +2243,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "", "", "", "", "" ],
-					"patching_rect" : [ 1063.0, 306.0, 360.0, 22.0 ],
+					"patching_rect" : [ 1589.0, 306.0, 360.0, 22.0 ],
 					"text" : "OSC-route /wrists_R0 /wrists_R1 /wrists_R2 /wrists_R3"
 				}
 
@@ -1904,7 +2255,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1063.0, 267.0, 97.0, 22.0 ],
+					"patching_rect" : [ 1589.0, 267.0, 97.0, 22.0 ],
 					"text" : "udpreceive 9999"
 				}
 
@@ -1918,7 +2269,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1063.0, 164.0, 50.0, 22.0 ]
+					"patching_rect" : [ 1589.0, 160.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -1929,8 +2280,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1063.0, 122.0, 179.0, 22.0 ],
-					"text" : "0.623767"
+					"patching_rect" : [ 1589.0, 118.0, 179.0, 22.0 ],
+					"text" : "0.01021"
 				}
 
 			}
@@ -1941,7 +2292,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "", "", "", "", "" ],
-					"patching_rect" : [ 1063.0, 69.0, 409.0, 22.0 ],
+					"patching_rect" : [ 1589.0, 65.0, 409.0, 22.0 ],
 					"text" : "OSC-route /wrists_L0 /wrists_L1 /wrists_L2 /wrists_L3"
 				}
 
@@ -1953,7 +2304,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1063.0, 31.0, 97.0, 22.0 ],
+					"patching_rect" : [ 1589.0, 27.0, 97.0, 22.0 ],
 					"text" : "udpreceive 9999"
 				}
 
@@ -1991,7 +2342,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 644.0, 819.0, 55.0, 22.0 ],
+					"patching_rect" : [ 661.0, 819.4174644947052, 55.0, 22.0 ],
 					"text" : "dac~ 1 2"
 				}
 
@@ -2323,7 +2674,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-46", 0 ],
+					"destination" : [ "obj-225", 0 ],
 					"source" : [ "obj-116", 0 ]
 				}
 
@@ -2408,29 +2759,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-18", 1 ],
-					"order" : 0,
-					"source" : [ "obj-123", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-18", 0 ],
-					"order" : 1,
-					"source" : [ "obj-123", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-46", 0 ],
-					"source" : [ "obj-127", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-29", 0 ],
 					"source" : [ "obj-13", 0 ]
 				}
@@ -2440,6 +2768,98 @@
 				"patchline" : 				{
 					"destination" : [ "obj-112", 0 ],
 					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-180", 0 ],
+					"order" : 2,
+					"source" : [ "obj-156", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-188", 0 ],
+					"order" : 0,
+					"source" : [ "obj-156", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-209", 0 ],
+					"order" : 3,
+					"source" : [ "obj-156", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-218", 0 ],
+					"order" : 1,
+					"source" : [ "obj-156", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-156", 0 ],
+					"source" : [ "obj-157", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-157", 1 ],
+					"order" : 0,
+					"source" : [ "obj-158", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-157", 0 ],
+					"order" : 1,
+					"source" : [ "obj-158", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-158", 0 ],
+					"source" : [ "obj-159", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-174", 0 ],
+					"source" : [ "obj-166", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 1 ],
+					"order" : 0,
+					"source" : [ "obj-166", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"order" : 1,
+					"source" : [ "obj-166", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-166", 0 ],
+					"source" : [ "obj-179", 0 ]
 				}
 
 			}
@@ -2459,6 +2879,36 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-179", 0 ],
+					"order" : 1,
+					"source" : [ "obj-180", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-201", 1 ],
+					"order" : 0,
+					"source" : [ "obj-180", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-188", 0 ],
+					"source" : [ "obj-187", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-221", 0 ],
+					"source" : [ "obj-188", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-6", 1 ],
 					"order" : 0,
 					"source" : [ "obj-2", 0 ]
@@ -2470,6 +2920,94 @@
 					"destination" : [ "obj-6", 0 ],
 					"order" : 1,
 					"source" : [ "obj-2", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-216", 0 ],
+					"source" : [ "obj-209", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-166", 0 ],
+					"source" : [ "obj-213", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-166", 0 ],
+					"source" : [ "obj-215", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-215", 0 ],
+					"source" : [ "obj-216", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 1 ],
+					"order" : 0,
+					"source" : [ "obj-217", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"order" : 1,
+					"source" : [ "obj-217", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-220", 0 ],
+					"source" : [ "obj-218", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-217", 0 ],
+					"source" : [ "obj-219", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-219", 0 ],
+					"source" : [ "obj-220", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-217", 0 ],
+					"source" : [ "obj-221", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-123", 0 ],
+					"order" : 1,
+					"source" : [ "obj-225", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-166", 0 ],
+					"order" : 0,
+					"source" : [ "obj-225", 0 ]
 				}
 
 			}
@@ -2748,13 +3286,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-123", 0 ],
-					"source" : [ "obj-46", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-96", 1 ],
 					"source" : [ "obj-49", 0 ]
 				}
@@ -2923,8 +3454,9 @@
  ],
 		"parameters" : 		{
 			"obj-112" : [ "amxd~", "amxd~", 0 ],
-			"obj-126" : [ "amxd~[2]", "amxd~[2]", 0 ],
+			"obj-166" : [ "amxd~[2]", "amxd~[1]", 0 ],
 			"obj-18" : [ "live.gain~", "live.gain~", 0 ],
+			"obj-217" : [ "amxd~[3]", "amxd~[1]", 0 ],
 			"parameterbanks" : 			{
 				"0" : 				{
 					"index" : 0,
@@ -2938,13 +3470,20 @@
 		}
 ,
 		"dependency_cache" : [ 			{
-				"name" : "Bassline.amxd",
-				"bootpath" : "C74:/packages/Max for Live/patchers/Max Instrument/Bassline",
+				"name" : "Max AutoFilter.amxd",
+				"bootpath" : "C74:/packages/Max for Live/patchers/Max Audio Effect/Max AutoFilter",
 				"type" : "amxd",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "Bassline.amxd.maxsnap",
+				"name" : "Max AutoFilter.amxd.maxsnap",
+				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../Max 8/Snapshots",
+				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "Max AutoFilter.amxd_20240511.maxsnap",
 				"bootpath" : "~/Documents/Max 8/Snapshots",
 				"patcherrelativepath" : "../../Max 8/Snapshots",
 				"type" : "mx@s",
