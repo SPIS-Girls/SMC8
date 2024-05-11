@@ -38,12 +38,11 @@ def calculate_tilt(depth_frame):
     arr_middle_x = np.full(diff_x.shape, diff_x[0])
     arr_middle_y = np.full(diff_y.shape, diff_y[0])
 
-    if not np.isclose(diff_x, arr_middle_x, atol=0.1).all() or not np.isclose(diff_y, arr_middle_y, atol=0.1).all():
+    if not np.isclose(diff_x, arr_middle_x, atol=0.05).all() or not np.isclose(diff_y, arr_middle_y, atol=0.05).all():
         print("Not tilt")
         return 0
 
     tilt = (np.max(region) - np.min(region)) / 1.5
-    print(tilt)
 
     ind = np.unravel_index(np.argmin(region, axis=None), region.shape)
     if ind[0] < region.shape[0] // 2:

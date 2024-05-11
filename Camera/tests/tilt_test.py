@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 
 tilt = np.linspace(-1, 1, 100)
 
-x = np.linspace(-5, 5, 1000)
-y = np.linspace(-5, 5, 1000)
+x = np.linspace(0, 0.2, 1000)
+y = np.linspace(0, 0.9, 1000)
 
 xx, yy = np.meshgrid(x, y)
 not_tilt = np.sqrt(xx**2 + yy**2)
