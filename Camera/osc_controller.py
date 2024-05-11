@@ -12,6 +12,7 @@ class OSCController:
         self.TORSO_ENDPOINT = "/weight"
         self.ROTATION_ENDPOINT = "/rotation"
         self.STOP_ENDPOINT = "/stop"
+        self.TILT_ENDPOINT = "/tilt"
 
     def send_distance(self, distance):
         self.client.send_message(self.DISTANCE_ENDPOINT, distance)
@@ -26,6 +27,9 @@ class OSCController:
 
     def send_rotation(self, rotation):
         self.client.send_message(self.ROTATION_ENDPOINT, rotation)
+
+    def send_tilt(self, tilt):
+        self.client.send_message(self.TILT_ENDPOINT, tilt)
 
     def send_body_parts(self, wrists_left, wrists_right):
         for idx, wrist in enumerate(wrists_left):
