@@ -10,7 +10,7 @@ import mediapipe as mp
 from pose_detector import PoseDetector
 from osc_controller import OSCController
 from one_euro_filter import OneEuroFilter 
-
+from depth_analyzer import DepthAnalyzer
 
 class LidarApp:
     def __init__(self):
@@ -27,6 +27,7 @@ class LidarApp:
         self.pd = PoseDetector()
         self.oc = OSCController(config.IP, config.PORT)
         self.one_euro_filter = OneEuroFilter(self.t, 0, min_cutoff=0.004, beta=0.7)
+        self.da = DepthAnalyzer()
 
     def on_new_frame(self):
         """
@@ -61,13 +62,12 @@ class LidarApp:
 
             # ====== Read the newly arrived RGBD frame ======
             depth = self.session.get_depth_frame()  
+            rgb = self.session.get_rgb_frame()
 
             # ====== Depth Calucaltions ======
             depth_middle = float(distance.calculate_depth_middle(depth))
             is_stop = distance.is_on_the_floor(depth)
             tilt = distance.calculate_tilt(depth)
-
-            # TODO Giacomo's code
 
             self.t += 1 
             # ====== Send OSC ======
