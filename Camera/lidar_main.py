@@ -9,6 +9,7 @@ import distance
 import mediapipe as mp
 from pose_detector import PoseDetector
 from osc_controller import OSCController
+from one_euro_filter import OneEuroFilter 
 
 
 class LidarApp:
@@ -21,8 +22,11 @@ class LidarApp:
         self.frame_drop_counter = config.DROP_FRAME_INTERVAL
         self.detection_result = None
 
+        self.t = 0
+
         self.pd = PoseDetector()
         self.oc = OSCController(config.IP, config.PORT)
+        self.one_euro_filter = OneEuroFilter(self.t, 0, min_cutoff=0.004, beta=0.7)
 
     def on_new_frame(self):
         """
@@ -62,12 +66,14 @@ class LidarApp:
             depth_middle = float(distance.calculate_depth_middle(depth))
             is_stop = distance.is_on_the_floor(depth)
             tilt = distance.calculate_tilt(depth)
+
             # TODO Giacomo's code
 
+            self.t += 1 
             # ====== Send OSC ======
             self.oc.send_distance(depth_middle) # Send the distance of the middle pixels
             self.oc.send_stop_position(is_stop) # Send the stop position
-            self.oc.send_tilt(tilt) # Send the tilt
+            self.oc.send_tilt(self.one_euro_filter(self.t, tilt)) # Send the tilt
 
             if config.VISUALIZE:
                 #  ====== Postprocess for Visualization ======
