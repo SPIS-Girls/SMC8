@@ -5,12 +5,11 @@ from threading import Event
 from record3d import Record3DStream
 
 import config
-import distance
 import mediapipe as mp
 from pose_detector import PoseDetector
 from osc_controller import OSCController
-from one_euro_filter import OneEuroFilter 
 from depth_analyzer import DepthAnalyzer
+from distance import Distance
 
 class LidarApp:
     def __init__(self):
@@ -26,8 +25,8 @@ class LidarApp:
 
         self.pd = PoseDetector()
         self.oc = OSCController(config.IP, config.PORT)
-        self.one_euro_filter = OneEuroFilter(self.t, 0, min_cutoff=0.004, beta=0.7)
         self.da = DepthAnalyzer()
+        self.dis = Distance()
 
     def on_new_frame(self):
         """
@@ -65,15 +64,16 @@ class LidarApp:
             rgb = self.session.get_rgb_frame()
 
             # ====== Depth Calucaltions ======
-            depth_middle = float(distance.calculate_depth_middle(depth))
-            is_stop = distance.is_on_the_floor(depth)
-            tilt = distance.calculate_tilt(depth)
+            self.dis.push_depth_frame(depth)
+            is_stop = self.dis.is_on_the_floor()
+            depth_middle, tilt = self.dis.get_parameters()
+            # tilt = distance.calculate_tilt(depth, crunchiness)
 
             self.t += 1 
             # ====== Send OSC ======
             self.oc.send_distance(depth_middle) # Send the distance of the middle pixels
             self.oc.send_stop_position(is_stop) # Send the stop position
-            self.oc.send_tilt(self.one_euro_filter(self.t, tilt)) # Send the tilt
+            # self.oc.send_tilt(self.one_euro_filter(self.t, tilt)) # Send the tilt
 
             if config.VISUALIZE:
                 #  ====== Postprocess for Visualization ======

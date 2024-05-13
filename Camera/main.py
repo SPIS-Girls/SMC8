@@ -12,7 +12,7 @@ from pythonosc import udp_client
 from osc_controller import OSCController
 
 pd = PoseDetector()
-cap = cv2.VideoCapture(0) #'videos/two_ppl_spinning_mid.MP4'
+cap = cv2.VideoCapture(1) #'videos/two_ppl_spinning_mid.MP4'
 oc = OSCController(config.IP, config.PORT)
 frame_drop_counter = config.DROP_FRAME_INTERVAL
 detection_result = None
