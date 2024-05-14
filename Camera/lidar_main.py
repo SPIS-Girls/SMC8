@@ -67,12 +67,12 @@ class LidarApp:
             is_stop = distance.is_on_the_floor(depth)
 
             # ====== Marker Calculations ======
-            angle = self.md.detect_rotation(rgb)
+            rotation = self.md.detect_rotation(rgb)
 
             # ====== Send OSC ======
             self.oc.send_distance(depth_middle) # Send the distance of the middle pixels
             self.oc.send_stop_position(is_stop) # Send the stop position
-            self.oc.send_rotation(angle) # Send the rotation angle
+            self.oc.send_rotation(rotation) # Send the rotation direction (-1, 0, 1)
 
             if config.VISUALIZE:
                 #  ====== Postprocess for Visualization ======
