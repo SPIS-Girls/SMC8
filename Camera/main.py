@@ -36,7 +36,6 @@ while True:
     # ====== Send OSC ======
     oc.send_weigth_effort(pd.get_torso_calc()) # Send the weigth effort
     oc.send_body_parts(pd.get_wrist_left_calc(), pd.get_wrist_right_calc()) # Send the wrist displacement
-    oc.send_rotation(pd.get_rotation_calc()) # Send the rotation
     
     if config.VISUALIZE:
         cv2.imshow("Video", detection_result)
