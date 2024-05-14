@@ -67,13 +67,12 @@ class LidarApp:
             self.dis.push_depth_frame(depth)
             is_stop = self.dis.is_on_the_floor()
             depth_middle, tilt = self.dis.get_parameters()
-            # tilt = distance.calculate_tilt(depth, crunchiness)
 
             self.t += 1 
             # ====== Send OSC ======
             self.oc.send_distance(depth_middle) # Send the distance of the middle pixels
             self.oc.send_stop_position(is_stop) # Send the stop position
-            # self.oc.send_tilt(self.one_euro_filter(self.t, tilt)) # Send the tilt
+            self.oc.send_tilt(tilt) # Send the tilt
 
             if config.VISUALIZE:
                 #  ====== Postprocess for Visualization ======

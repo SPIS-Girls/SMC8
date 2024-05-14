@@ -47,13 +47,14 @@ class Distance:
         if self.prev_frame is None or self.depth_frame is None:
             return 0
         
-        return np.mean(np.square(self.prev_frame - self.depth_frame))
+        return np.mean(np.abs(self.prev_frame - self.depth_frame))
 
     # Check if the region is tilted (smoothly goes from high to low)
     # If the region is tilted and smooth, return the angle of the tilt
     # If the region is not tilted or not smooth, return 0
     def calculate_tilt(self):
         crunchiness = self.calculate_crunchiness()
+        # print("Crunchiness: ", crunchiness)
         if crunchiness > config.CRUNCHINESS_THRESHOLD_LOW:
             print("Too much crunchiness", crunchiness)
             return 0
@@ -70,6 +71,8 @@ class Distance:
             print("Not enough tilt", tilt)
             return 0 
         
+        tilt -= config.TILT_THRESHOLD
+
         ind = np.unravel_index(np.argmin(region, axis=None), region.shape)
         if ind[0] < region.shape[0] // 2:
             tilt = -tilt
