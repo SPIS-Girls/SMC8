@@ -9,7 +9,8 @@ import distance
 import mediapipe as mp
 from pose_detector import PoseDetector
 from osc_controller import OSCController
-
+from depth_analyzer import DepthAnalyzer
+from marker_detector import MarkerDetector
 
 class LidarApp:
     def __init__(self):
@@ -23,6 +24,8 @@ class LidarApp:
 
         self.pd = PoseDetector()
         self.oc = OSCController(config.IP, config.PORT)
+        self.da = DepthAnalyzer()
+        self.md = MarkerDetector()
 
     def on_new_frame(self):
         """
@@ -57,6 +60,7 @@ class LidarApp:
 
             # ====== Read the newly arrived RGBD frame ======
             depth = self.session.get_depth_frame()  
+            rgb = self.session.get_rgb_frame()
 
             # ====== Depth Calucaltions ======
             depth_middle = float(distance.calculate_depth_middle(depth))
@@ -64,10 +68,14 @@ class LidarApp:
             tilt = distance.calculate_tilt(depth)
             # TODO Giacomo's code
 
+            # ====== Marker Calculations ======
+            rotation = self.md.detect_rotation(rgb)
+
             # ====== Send OSC ======
             self.oc.send_distance(depth_middle) # Send the distance of the middle pixels
             self.oc.send_stop_position(is_stop) # Send the stop position
             self.oc.send_tilt(tilt) # Send the tilt
+            self.oc.send_rotation(rotation) # Send the rotation direction (-1, 0, 1)
 
             if config.VISUALIZE:
                 #  ====== Postprocess for Visualization ======
