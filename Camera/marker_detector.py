@@ -144,12 +144,11 @@ class MarkerDetector:
 
         # change is 0 if no change, 1 if clockwise, -1 if counterclockwise
         change = 0
+        change_amplitude = 0
         angle_result = self.detect_angle(image)
 
-        if self.old_angle_result is None or angle_result is None:
-            change = 0
+        if self.old_angle_result is not None and angle_result is not None:
 
-        else:
             if angle_result > self.old_angle_result + 180:
                 diff = angle_result - (self.old_angle_result+360)
             else:
@@ -159,10 +158,12 @@ class MarkerDetector:
                 change = 1
             elif diff <= -thr:
                 change = -1
+            
+            change_amplitude = diff
         
         self.old_angle_result = angle_result
         
-        return change
+        return change, change_amplitude
 
 if __name__ == '__main__':
     md = MarkerDetector()
@@ -170,12 +171,12 @@ if __name__ == '__main__':
     while True:
         ret, frame = cap.read()  
         #frame = cv2.imread('images/testaruco2.png')
-        frame = cv2.resize(frame, (640, 480))
+        #frame = cv2.resize(frame, (640, 480))
 
         print(md.detect_rotation(frame))
 
         cv2.imshow('frame', frame)
-        sleep(0.1)
+        sleep(0)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break

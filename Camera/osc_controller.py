@@ -11,6 +11,7 @@ class OSCController:
         self.WRIST_R_ENDPOINT = "/wrists_R"
         self.TORSO_ENDPOINT = "/weight"
         self.ROTATION_ENDPOINT = "/rotation"
+        self.ROTATION_AMPLITUDE_ENDPOINT = "/rotation_amplitude"
         self.STOP_ENDPOINT = "/stop"
         self.TILT_ENDPOINT = "/tilt"
 
@@ -27,6 +28,9 @@ class OSCController:
 
     def send_rotation(self, rotation):
         self.client.send_message(self.ROTATION_ENDPOINT, rotation)
+
+    def send_rotation_amplitude(self, rotation_amplitude):
+        self.client.send_message(self.ROTATION_AMPLITUDE_ENDPOINT, rotation_amplitude)
 
     def send_tilt(self, tilt):
         self.client.send_message(self.TILT_ENDPOINT, tilt)

@@ -72,13 +72,14 @@ class LidarApp:
 
             self.t += 1 
             # ====== Marker Calculations ======
-            rotation = self.md.detect_rotation(rgb)
+            rotation, rotation_amplitude = self.md.detect_rotation(rgb)
 
             # ====== Send OSC ======
             self.oc.send_distance(depth_middle) # Send the distance of the middle pixels
             self.oc.send_stop_position(is_stop) # Send the stop position
             self.oc.send_tilt(tilt) # Send the tilt
             self.oc.send_rotation(rotation) # Send the rotation direction (-1, 0, 1)
+            self.oc.send_rotation_amplitude(rotation_amplitude) # Send the rotation amp.
 
             if config.VISUALIZE:
                 #  ====== Postprocess for Visualization ======
