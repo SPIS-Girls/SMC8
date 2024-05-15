@@ -139,7 +139,8 @@ class MarkerDetector:
         # calculate the threshold depending on frames per second
         # 10 degrees per second minimum to detect change
         deg_per_second_thr = 10
-        thr = (time() - self.old_time) * deg_per_second_thr
+        period = time() - self.old_time
+        thr = period * deg_per_second_thr
         self.old_time = time()
 
         # change is 0 if no change, 1 if clockwise, -1 if counterclockwise
@@ -159,7 +160,7 @@ class MarkerDetector:
             elif diff <= -thr:
                 change = -1
             
-            change_amplitude = diff
+            change_amplitude = diff * period
         
         self.old_angle_result = angle_result
         
