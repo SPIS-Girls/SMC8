@@ -5,11 +5,11 @@ from threading import Event
 from record3d import Record3DStream
 
 import config
-import distance
 import mediapipe as mp
 from pose_detector import PoseDetector
 from osc_controller import OSCController
 from depth_analyzer import DepthAnalyzer
+from distance import Distance
 from marker_detector import MarkerDetector
 
 class LidarApp:
@@ -22,9 +22,12 @@ class LidarApp:
         self.frame_drop_counter = config.DROP_FRAME_INTERVAL
         self.detection_result = None
 
+        self.t = 0
+
         self.pd = PoseDetector()
         self.oc = OSCController(config.IP, config.PORT)
         self.da = DepthAnalyzer()
+        self.dis = Distance()
         self.md = MarkerDetector()
 
     def on_new_frame(self):
@@ -63,11 +66,11 @@ class LidarApp:
             rgb = self.session.get_rgb_frame()
 
             # ====== Depth Calucaltions ======
-            depth_middle = float(distance.calculate_depth_middle(depth))
-            is_stop = distance.is_on_the_floor(depth)
-            tilt = distance.calculate_tilt(depth)
-            # TODO Giacomo's code
+            self.dis.push_depth_frame(depth)
+            is_stop = self.dis.is_on_the_floor()
+            depth_middle, tilt = self.dis.get_parameters()
 
+            self.t += 1 
             # ====== Marker Calculations ======
             rotation = self.md.detect_rotation(rgb)
 
