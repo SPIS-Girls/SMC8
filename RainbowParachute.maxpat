@@ -3,14 +3,14 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 8,
-			"minor" : 5,
-			"revision" : 6,
+			"minor" : 6,
+			"revision" : 2,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 25.0, 1468.0, 757.0 ],
+		"rect" : [ 34.0, 77.0, 1468.0, 705.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -39,6 +39,125 @@
 		"subpatcher_template" : "",
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-100",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 1098.0, 348.0, 50.0, 22.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-86",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 1098.0, 280.0, 50.0, 22.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-77",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 787.0, 667.0, 50.0, 22.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-71",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 880.0, 585.0, 29.5, 22.0 ],
+					"text" : "1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-66",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 787.0, 551.0, 29.5, 22.0 ],
+					"text" : "0"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-59",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "int", "int" ],
+					"patching_rect" : [ 1098.0, 316.0, 48.0, 22.0 ],
+					"text" : "change"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-56",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 1122.0, 422.0, 29.5, 22.0 ],
+					"text" : "0"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-47",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 1072.0, 418.0, 29.5, 22.0 ],
+					"text" : "1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-45",
+					"maxclass" : "newobj",
+					"numinlets" : 3,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 1095.0, 382.0, 56.0, 22.0 ],
+					"text" : "route 0 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-41",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 1150.0, 280.0, 99.0, 20.0 ],
+					"text" : "one means stopr"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-102",
 					"maxclass" : "newobj",
@@ -180,6 +299,7 @@
 						"valueof" : 						{
 							"parameter_invisible" : 1,
 							"parameter_longname" : "amxd~",
+							"parameter_modmode" : 0,
 							"parameter_shortname" : "amxd~",
 							"parameter_type" : 3
 						}
@@ -206,23 +326,24 @@
 							"origname" : "C74:/packages/Max for Live/patchers/Max Audio Effect/Space Echo/Space Echo.amxd",
 							"valuedictionary" : 							{
 								"parameter_values" : 								{
-									"WarbleAmount" : 10.0,
-									"WarbleSpeed" : 79.0,
-									"bpm" : 227.716535433070817,
-									"clipping" : 0.566929133858268,
-									"feedback" : 47.793751532637231,
-									"highpass" : 1370.078740157480297,
-									"inertia" : 5.669291338582677,
-									"live.menu" : 16.0,
-									"lowpass" : 6429.606299212591694,
-									"reverb_wetdry" : 100.0,
-									"revtime" : 752.75590551181233,
+									"WarbleAmount" : 14.0,
+									"WarbleSpeed" : 43.0,
+									"bpm" : 30.0,
+									"clipping" : 0.63,
+									"feedback" : 47.0,
+									"highpass" : 220.0,
+									"inertia" : 2.687,
+									"live.menu" : 13.0,
+									"lowpass" : 3280.0,
+									"reverb_wetdry" : 27.200001,
+									"revtime" : 2800.0,
 									"tempo" : 0.0,
-									"wet/dry" : 44.881889763779469
+									"wet/dry" : 100.0
 								}
 
 							}
-
+,
+							"active" : 1
 						}
 ,
 						"snapshotlist" : 						{
@@ -235,29 +356,30 @@
 									"origin" : "Space Echo.amxd",
 									"type" : "amxd",
 									"subtype" : "Undefined",
-									"embed" : 0,
+									"embed" : 1,
 									"snapshot" : 									{
 										"name" : "Space Echo.amxd",
 										"origname" : "C74:/packages/Max for Live/patchers/Max Audio Effect/Space Echo/Space Echo.amxd",
 										"valuedictionary" : 										{
 											"parameter_values" : 											{
-												"WarbleAmount" : 10.0,
-												"WarbleSpeed" : 79.0,
-												"bpm" : 227.716535433070817,
-												"clipping" : 0.566929133858268,
-												"feedback" : 47.793751532637231,
-												"highpass" : 1370.078740157480297,
-												"inertia" : 5.669291338582677,
-												"live.menu" : 16.0,
-												"lowpass" : 6429.606299212591694,
-												"reverb_wetdry" : 100.0,
-												"revtime" : 752.75590551181233,
+												"WarbleAmount" : 14.0,
+												"WarbleSpeed" : 43.0,
+												"bpm" : 30.0,
+												"clipping" : 0.63,
+												"feedback" : 47.0,
+												"highpass" : 220.0,
+												"inertia" : 2.687,
+												"live.menu" : 13.0,
+												"lowpass" : 3280.0,
+												"reverb_wetdry" : 27.200001,
+												"revtime" : 2800.0,
 												"tempo" : 0.0,
-												"wet/dry" : 44.881889763779469
+												"wet/dry" : 100.0
 											}
 
 										}
-
+,
+										"active" : 1
 									}
 ,
 									"fileref" : 									{
@@ -265,7 +387,7 @@
 										"filename" : "Space Echo.amxd.maxsnap",
 										"filepath" : "~/Documents/Max 8/Snapshots",
 										"filepos" : -1,
-										"snapshotfileid" : "2703be9dea612478b939f1d121de19fe"
+										"snapshotfileid" : "e26e90e4b039a14f0c46097d5df62a7d"
 									}
 
 								}
@@ -372,7 +494,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 8.0, 744.0, 50.0, 22.0 ],
-					"text" : "-0."
+					"text" : "0."
 				}
 
 			}
@@ -445,7 +567,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 1036.0, 615.0, 50.0, 22.0 ]
+					"patching_rect" : [ 975.0, 554.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -456,8 +578,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1036.0, 576.0, 101.0, 22.0 ],
-					"text" : "-0.010114"
+					"patching_rect" : [ 975.0, 515.0, 101.0, 22.0 ],
+					"text" : "0"
 				}
 
 			}
@@ -466,10 +588,10 @@
 					"id" : "obj-11",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 1036.0, 532.0, 113.0, 22.0 ],
-					"text" : "OSC-route /rotation"
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 1036.0, 247.0, 142.0, 22.0 ],
+					"text" : "OSC-route /rotation /stop"
 				}
 
 			}
@@ -480,7 +602,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1036.0, 489.0625, 97.0, 22.0 ],
+					"patching_rect" : [ 1036.0, 204.0, 97.0, 22.0 ],
 					"text" : "udpreceive 9999"
 				}
 
@@ -581,7 +703,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1258.441546440124512, 581.25, 179.0, 22.0 ],
-					"text" : "42.68626"
+					"text" : "9.492773"
 				}
 
 			}
@@ -630,7 +752,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1835.004046440124512, 359.375, 179.0, 22.0 ],
-					"text" : "0"
+					"text" : "0."
 				}
 
 			}
@@ -655,7 +777,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1642.816546440124512, 359.375, 179.0, 22.0 ],
-					"text" : "0"
+					"text" : "0."
 				}
 
 			}
@@ -680,7 +802,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1445.941546440124512, 359.375, 179.0, 22.0 ],
-					"text" : "0"
+					"text" : "0."
 				}
 
 			}
@@ -705,7 +827,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1257.8125, 359.375, 179.0, 22.0 ],
-					"text" : "0.154669"
+					"text" : "0.222292"
 				}
 
 			}
@@ -730,7 +852,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1835.9375, 121.875, 179.0, 22.0 ],
-					"text" : "0"
+					"text" : "0."
 				}
 
 			}
@@ -755,7 +877,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1643.75, 121.875, 179.0, 22.0 ],
-					"text" : "0"
+					"text" : "0."
 				}
 
 			}
@@ -780,7 +902,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1446.875, 121.875, 179.0, 22.0 ],
-					"text" : "0"
+					"text" : "0."
 				}
 
 			}
@@ -829,7 +951,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 1257.8125, 121.875, 179.0, 22.0 ],
-					"text" : "0.12966"
+					"text" : "-0.199531"
 				}
 
 			}
@@ -890,7 +1012,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 999.999990463256836, 318.181815147399902, 102.0, 23.0 ],
+					"patching_rect" : [ 750.75, 367.0, 102.0, 23.0 ],
 					"text" : "pitchshiftcent $1"
 				}
 
@@ -912,10 +1034,10 @@
 					"basictuning" : 440,
 					"data" : 					{
 						"clips" : [ 							{
-								"absolutepath" : "Macintosh HD:/Users/katebosen/Downloads/A#_124 The Tribe Of Good - Loving You Baby (Weiss Remix).mp3",
-								"filename" : "A#_124 The Tribe Of Good - Loving You Baby (Weiss Remix).mp3",
+								"absolutepath" : "C:\\Users\\bloqd\\Documents\\AAU\\Semester 2\\GranularHands\\audio\\Sunrise.wav",
+								"filename" : "Sunrise.wav",
 								"filekind" : "audiofile",
-								"id" : "u801003086",
+								"id" : "u398000495",
 								"selection" : [ 0.0, 1.0 ],
 								"loop" : 1,
 								"content_state" : 								{
@@ -1027,8 +1149,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 857.0, 111.0, 29.5, 49.0 ],
-					"text" : "2.414917"
+					"patching_rect" : [ 857.0, 111.0, 29.5, 50.0 ],
+					"text" : "3.561768"
 				}
 
 			}
@@ -1334,6 +1456,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-45", 0 ],
+					"source" : [ "obj-100", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-97", 0 ],
 					"source" : [ "obj-101", 0 ]
 				}
@@ -1396,6 +1525,13 @@
 					"destination" : [ "obj-22", 0 ],
 					"order" : 1,
 					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-86", 0 ],
+					"source" : [ "obj-11", 1 ]
 				}
 
 			}
@@ -1899,6 +2035,27 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-47", 0 ],
+					"source" : [ "obj-45", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-56", 0 ],
+					"source" : [ "obj-45", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-19", 0 ],
+					"source" : [ "obj-47", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-96", 1 ],
 					"source" : [ "obj-49", 0 ]
 				}
@@ -1950,6 +2107,20 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-19", 0 ],
+					"source" : [ "obj-56", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-100", 0 ],
+					"source" : [ "obj-59", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-26", 0 ],
 					"source" : [ "obj-6", 0 ]
 				}
@@ -1973,6 +2144,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-77", 0 ],
+					"source" : [ "obj-66", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-67", 0 ],
 					"source" : [ "obj-68", 0 ]
 				}
@@ -1982,6 +2160,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
 					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-77", 0 ],
+					"source" : [ "obj-71", 0 ]
 				}
 
 			}
@@ -2031,6 +2216,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-87", 1 ],
 					"source" : [ "obj-85", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-59", 0 ],
+					"source" : [ "obj-86", 0 ]
 				}
 
 			}
@@ -2123,8 +2315,8 @@
 		}
 ,
 		"dependency_cache" : [ 			{
-				"name" : "OSC-route.mxo",
-				"type" : "iLaX"
+				"name" : "OSC-route.mxe64",
+				"type" : "mx64"
 			}
 , 			{
 				"name" : "Space Echo.amxd",
@@ -2135,8 +2327,15 @@
 , 			{
 				"name" : "Space Echo.amxd.maxsnap",
 				"bootpath" : "~/Documents/Max 8/Snapshots",
-				"patcherrelativepath" : "../Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../Max 8/Snapshots",
 				"type" : "mx@s",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "Sunrise.wav",
+				"bootpath" : "~/Documents/AAU/Semester 2/GranularHands/audio",
+				"patcherrelativepath" : "../GranularHands/audio",
+				"type" : "WAVE",
 				"implicit" : 1
 			}
  ],
