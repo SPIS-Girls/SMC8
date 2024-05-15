@@ -65,6 +65,8 @@ class LidarApp:
             # ====== Depth Calucaltions ======
             depth_middle = float(distance.calculate_depth_middle(depth))
             is_stop = distance.is_on_the_floor(depth)
+            tilt = distance.calculate_tilt(depth)
+            # TODO Giacomo's code
 
             # ====== Marker Calculations ======
             rotation = self.md.detect_rotation(rgb)
@@ -72,6 +74,7 @@ class LidarApp:
             # ====== Send OSC ======
             self.oc.send_distance(depth_middle) # Send the distance of the middle pixels
             self.oc.send_stop_position(is_stop) # Send the stop position
+            self.oc.send_tilt(tilt) # Send the tilt
             self.oc.send_rotation(rotation) # Send the rotation direction (-1, 0, 1)
 
             if config.VISUALIZE:
