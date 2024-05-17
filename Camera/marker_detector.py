@@ -138,7 +138,7 @@ class MarkerDetector:
         
         # calculate the threshold depending on frames per second
         # 10 degrees per second minimum to detect change
-        deg_per_second_thr = 10
+        deg_per_second_thr = 30
         period = time() - self.old_time
         thr = period * deg_per_second_thr
         self.old_time = time()
