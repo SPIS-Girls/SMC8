@@ -21,7 +21,7 @@ char ssid[] = "Biox";      // your network SSID (name)
 char pass[] = "Biox1234";  // your network password
 
 WiFiUDP Udp;                              // A UDP instance to let us send and receive packets over UDP
-const IPAddress outIp(192, 168, 1, 108);  // r/emote IP of your computer
+const IPAddress outIp(192, 168, 1, 101);  // r/emote IP of your computer
 const unsigned int outPort = 9999;        // remote port to receive OSC
 const unsigned int localPort = 8888;      // local port to listen for OSC packets (actually not used for sending)
 
