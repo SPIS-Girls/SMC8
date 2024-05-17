@@ -8,6 +8,7 @@ class Distance:
         self.t = 0
         self.euro_filt_distance = OneEuroFilter(self.t, 0, min_cutoff=0.004, beta=0.7)
         self.euro_filt_tilt = OneEuroFilter(self.t, 0, min_cutoff=0.004, beta=0.7)
+        self.euro_filt_crunch = OneEuroFilter(self.t, 0, min_cutoff=0.004, beta=0.7)
         self.depth_frame = None
         self.prev_frame = None
 
@@ -25,7 +26,8 @@ class Distance:
 
     def get_parameters(self) -> tuple: 
         self.t += 1
-        return self.euro_filt_distance(self.t, self.calculate_depth_middle()), self.euro_filt_tilt(self.t, self.calculate_tilt())
+        tilt, crunch = self.calculate_tilt()
+        return self.euro_filt_distance(self.t, self.calculate_depth_middle()), self.euro_filt_tilt(self.t, tilt), self.euro_filt_crunch(self.t, crunch)
     
     def is_on_the_floor(self):
         center_y, center_x = np.array(self.depth_frame.shape) // 2 # Calculate the center of the depth array
@@ -35,7 +37,7 @@ class Distance:
             region = self.depth_frame[center_y-area:center_y+area, center_x-area:center_x+area] # Extract the 20% region around the center
             # check if the region is flat, if all values are close to the center value
             arr_middle = np.full(region.shape, self.depth_frame[center_y, center_x])
-            return np.isclose(region, arr_middle, atol=0.05).all()
+            return np.isclose(region, arr_middle, atol=0.10).all()
 
     # Calculate the depth of the middle of the depth frame
     def calculate_depth_middle(self):
@@ -57,7 +59,7 @@ class Distance:
         # print("Crunchiness: ", crunchiness)
         if crunchiness > config.CRUNCHINESS_THRESHOLD_LOW:
             print("Too much crunchiness", crunchiness)
-            return 0
+            return 0, crunchiness
 
         center_y, center_x = np.array(self.depth_frame.shape) // 2 # Calculate the center of the depth array
         circ, _ = np.array(self.depth_frame.shape) // 5 # 20% of depth frame's size
@@ -69,7 +71,7 @@ class Distance:
         tilt = (np.max(corners) - np.min(corners)) / 1.5
         if np.abs(tilt) < config.TILT_THRESHOLD:
             print("Not enough tilt", tilt)
-            return 0 
+            return 0, crunchiness
         
         tilt -= config.TILT_THRESHOLD
 
@@ -79,4 +81,4 @@ class Distance:
 
         print("Tilt: ", tilt)
 
-        return np.clip(tilt, -1, 1)
+        return np.clip(tilt, -1, 1), crunchiness

@@ -3,6 +3,8 @@ import cv2
 
 from threading import Event
 from record3d import Record3DStream
+import random
+import os
 
 import config
 import mediapipe as mp
@@ -29,6 +31,14 @@ class LidarApp:
         self.da = DepthAnalyzer()
         self.dis = Distance()
         self.md = MarkerDetector()
+
+        if config.RECORDING:
+            id = str(random.randint(0,99999))
+            self.recording_path = "videos/rec" + id
+            if not os.path.exists("videos"):
+                os.makedirs("videos")
+            if not os.path.exists(self.recording_path):
+                os.makedirs(self.recording_path)
 
     def on_new_frame(self):
         """
@@ -65,10 +75,14 @@ class LidarApp:
             depth = self.session.get_depth_frame()  
             rgb = self.session.get_rgb_frame()
 
+            if config.RECORDING:
+                cv2.imwrite(self.recording_path + "/rgb" + str(self.t) + ".jpg", rgb)
+                cv2.imwrite(self.recording_path + "/depth" + str(self.t) + ".jpg", depth * 255 / max_depth)
+
             # ====== Depth Calucaltions ======
             self.dis.push_depth_frame(depth)
             is_stop = self.dis.is_on_the_floor()
-            depth_middle, tilt = self.dis.get_parameters()
+            depth_middle, tilt, crunchiness = self.dis.get_parameters()
 
             self.t += 1 
             # ====== Marker Calculations ======
@@ -80,6 +94,7 @@ class LidarApp:
             self.oc.send_tilt(tilt) # Send the tilt
             self.oc.send_rotation(rotation) # Send the rotation direction (-1, 0, 1)
             self.oc.send_rotation_amplitude(rotation_amplitude) # Send the rotation amp.
+            self.oc.send_crunch(crunchiness) # Send the crunchiness.
 
             if config.VISUALIZE:
                 #  ====== Postprocess for Visualization ======
@@ -91,6 +106,7 @@ class LidarApp:
 
                 # ====== Show the RGBD Stream ======
                 cv2.imshow('Depth', depth)            
+                cv2.imshow('RGB', cv2.cvtColor(rgb, cv2.COLOR_BGR2RGB))
                 cv2.waitKey(1)  # Needed to refresh the window
 
             self.event.clear()

@@ -14,6 +14,7 @@ class OSCController:
         self.ROTATION_AMPLITUDE_ENDPOINT = "/rotation_amplitude"
         self.STOP_ENDPOINT = "/stop"
         self.TILT_ENDPOINT = "/tilt"
+        self.CRUNCH_ENDPOINT = "/crunch"
 
     def send_distance(self, distance):
         self.client.send_message(self.DISTANCE_ENDPOINT, distance)
@@ -31,6 +32,9 @@ class OSCController:
 
     def send_rotation_amplitude(self, rotation_amplitude):
         self.client.send_message(self.ROTATION_AMPLITUDE_ENDPOINT, rotation_amplitude)
+
+    def send_crunch(self, crunch):
+        self.client.send_message(self.CRUNCH_ENDPOINT, crunch)
 
     def send_tilt(self, tilt):
         self.client.send_message(self.TILT_ENDPOINT, tilt)
